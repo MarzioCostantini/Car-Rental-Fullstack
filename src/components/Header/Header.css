@@ -35,3 +35,9 @@ header input {
     padding: 5px;
     cursor: pointer;
 }
+
+.avatar {
+    height: 35px;
+    width: auto;
+    border-radius: 50px;
+}

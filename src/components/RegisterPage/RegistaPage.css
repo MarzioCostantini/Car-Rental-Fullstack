@@ -1,0 +1,73 @@
+/* RegistaPage.css */
+
+.container {
+    width: 100%;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.input {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    transition: border-color 0.3s;
+}
+
+.input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.button {
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+.message {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #d9534f;
+    text-align: center;
+}

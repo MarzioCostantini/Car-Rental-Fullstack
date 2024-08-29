@@ -3,8 +3,17 @@ import Herz from "../../assets/svg/Herz";
 import Notification from "../../assets/svg/Notification";
 import Settings from "../../assets/svg/Settings";
 import Searchbar from "../Searchbar/Searchbar";
+import { useUserContext } from "../../Context/UserContext";
+import Logout from "../Logout/Logout";
+import { Link } from "react-router-dom";
 
 const Header = () => {
+    const userContext = useUserContext();
+    const user = userContext?.user;
+
+    console.log("user", user);
+
+
     return (
         <header>
             <div className="left">
@@ -15,7 +24,11 @@ const Header = () => {
                 <Herz />
                 <Notification />
                 <Settings />
-                <img src="./img/user.png" alt="" />
+                <img className="avatar" src={user?.user_metadata.photo} alt="" />
+
+
+                {user ? <Logout /> : <Link to={"/login"}>Login</Link>}
+
             </div>
 
         </header>

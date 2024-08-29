@@ -8,6 +8,9 @@ import Loading from './pages/Loading';
 import { FormDataInterface } from './FromData';
 import { ExtraCarInfoInterface } from './ExtraCarInfo';
 import { UserFilterInterface } from './UserFilter';
+import LoginPage from './pages/Login/LoginPage';
+import RegisterPage from './components/RegisterPage/RegistaPage';
+import { UserProvider } from './Context/UserContext';
 
 function App() {
   const [cars, setCars] = useState<Car[]>([]);
@@ -19,29 +22,35 @@ function App() {
   const [filterdCars, setFilterdCars] = useState<Car[]>([]);
 
   return (
-    <CarContext.Provider value={{ cars, setCars }}>
-      <LoadingContext.Provider value={{ loading, setLoading }}>
-        <SideBarContext.Provider value={{ sideBar, setSideBar }}>
-          <FormDataContext.Provider value={{ formData, setFormData }}>
-            <ExtraCarInfoContext.Provider value={{ extraCarInfo, setExtraCarInfo }}>
-              <UserFilterContext.Provider value={{ userFilter, setUserFilter }}>
-                <FilterdCarsContext.Provider value={{ filterdCars, setFilterdCars }}>
-                  {loading ? (
-                    <Loading />
-                  ) : (
-                    <BrowserRouter>
-                      <Routes>
-                        <Route path="/" element={<Home />} />
-                      </Routes>
-                    </BrowserRouter>
-                  )}
-                </FilterdCarsContext.Provider>
-              </UserFilterContext.Provider>
-            </ExtraCarInfoContext.Provider>
-          </FormDataContext.Provider>
-        </SideBarContext.Provider>
-      </LoadingContext.Provider>
-    </CarContext.Provider >
+    <UserProvider>
+
+      <CarContext.Provider value={{ cars, setCars }}>
+        <LoadingContext.Provider value={{ loading, setLoading }}>
+          <SideBarContext.Provider value={{ sideBar, setSideBar }}>
+            <FormDataContext.Provider value={{ formData, setFormData }}>
+              <ExtraCarInfoContext.Provider value={{ extraCarInfo, setExtraCarInfo }}>
+                <UserFilterContext.Provider value={{ userFilter, setUserFilter }}>
+                  <FilterdCarsContext.Provider value={{ filterdCars, setFilterdCars }}>
+                    {loading ? (
+                      <Loading />
+                    ) : (
+                      <BrowserRouter>
+                        <Routes>
+                          <Route path="/" element={<Home />} />
+                          <Route path="/login" element={<LoginPage />} />
+                          <Route path="/register" element={<RegisterPage />} />
+                        </Routes>
+                      </BrowserRouter>
+                    )}
+                  </FilterdCarsContext.Provider>
+                </UserFilterContext.Provider>
+              </ExtraCarInfoContext.Provider>
+            </FormDataContext.Provider>
+          </SideBarContext.Provider>
+        </LoadingContext.Provider>
+      </CarContext.Provider >
+
+    </UserProvider>
   );
 }
 
