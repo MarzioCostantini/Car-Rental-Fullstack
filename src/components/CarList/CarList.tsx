@@ -1,119 +1,96 @@
 import { useContext, useEffect, useState } from "react";
 import "./CarList.css";
-import { CarContext, FilterdCarsContext, FormDataContext, UserFilterContext } from "../../Context/context";
+import { FormDataContext, UserFilterContext } from "../../Context/context";
 import CarItem from "../CarItem/CarItem";
 import { Car } from "../../Car";
+import supabaseClient from "../../lib/supaBaseClient";
 
 const CarList = () => {
-    const carData = useContext(CarContext);
     const filterUser = useContext(UserFilterContext);
     const formData = useContext(FormDataContext);
-    const filterdCars = useContext(FilterdCarsContext);
 
     const [showCars, setShowCars] = useState<number>(15);
     const [locationCarsState, setLocationCarsState] = useState<Car[] | null>(null);
 
 
-    console.log(filterdCars?.filterdCars);
 
 
-
-    // # Filter nach Location als Basisdaten
     useEffect(() => {
-        const picUpLocation = formData?.formData?.picUpLocation;
-        if (!picUpLocation) {
-            return;
-        }
+        const getData = async () => {
+            // *checkt ob daten gesetzt sind
+            const picUpLocation = formData?.formData?.picUpLocation;
+            const vehicleTypes = filterUser?.userFilter?.type;
+            const vehicleColor = filterUser?.userFilter?.colors;
+            const driverType = filterUser?.userFilter?.drivesType
+            const gearType = filterUser?.userFilter?.gear
+            const priceDay = filterUser?.userFilter?.priceDay
 
-        const locationCars = carData?.cars?.filter((item) =>
-            item.locations.includes(picUpLocation)
-        ) || [];
+            // *Abfrage erstellen an supabase
+            let filterData = supabaseClient
+                .from("vehicles")
+                .select("*")
+                .contains('locations', [picUpLocation]);
 
-        setLocationCarsState(locationCars); // Behalte die nach Standort gefilterten Autos bei
-        filterdCars?.setFilterdCars(locationCars); // Initialisiere gefilterte Autos
-    }, [formData?.formData?.picUpLocation, carData?.cars]);
+            // *Optional Filter 
 
-    // # Kombiniere alle aktiven Filter
-    useEffect(() => {
-        if (locationCarsState === null) return;
+            // Checken ob wirklich was gesetzt ist
+            if (vehicleTypes &&
+                vehicleTypes.length > 0 &&
 
-        // Muss ich machen da locationCarsState eine constante ist (state)
-        let filteredCars = locationCarsState;
+                vehicleColor &&
+                vehicleColor.length > 0 &&
 
-        //!Filter nach Typ
-        const kfzTypes = filterUser?.userFilter?.type || [];
-        if (kfzTypes.length > 0) {
-            filteredCars = filteredCars.filter(car =>
-                kfzTypes.includes(car.vehicleType)
-            );
-        }
+                driverType &&
+                driverType.length > 0 &&
 
-        // !Filter nach Farbe
-        const kfzColors = filterUser?.userFilter?.colors || [];
-        if (kfzColors.length > 0) {
-            filteredCars = filteredCars.filter(car =>
-                kfzColors.includes(car.colors)
-            );
-        }
+                gearType &&
+                gearType.length > 0 &&
 
-        // !Filtert nach DriveType
-        const kfzDriveType = filterUser?.userFilter?.drivesType || []
+                priceDay &&
+                priceDay !== undefined
 
-        console.log({ kfzDriveType });
+            ) {
+                // * Filter anwenden
+                filterData = filterData.in('vehicleType', vehicleTypes);
+                filterData = filterData.in('colors', vehicleColor);
+                filterData = filterData.in('fuel', driverType)
+                filterData = filterData.in('gearType', gearType)
+                filterData = filterData.lte('pricePerDay', priceDay);
+            }
 
-        if (kfzDriveType.length > 0) {
-            filteredCars = filteredCars.filter(car =>
-                kfzDriveType.includes(car.fuel)
-            )
-        }
+            // * Gefilterte daten rausziehen
+            const { data, error } = await filterData;
 
-        // !Filter nach Gear
-        const kfzGear = filterUser?.userFilter?.gear || []
-        if (kfzGear.length > 0) {
-            filteredCars = filteredCars.filter(car =>
-                kfzGear.includes(car.gearType)
-            )
-        }
+            if (error) {
+                console.log("Error bei daten ziehen", error);
+            } else if (data) {
+                // * Daten setzen
+                setLocationCarsState(data);
+            }
+        };
 
-        // !Filter nach Preis
-        const kfzPrice = filterUser?.userFilter?.priceDay
+        getData();
+    }, [formData?.formData, filterUser?.userFilter]);
 
-        if (kfzPrice === undefined) return
-
-
-        if (kfzPrice > 0) {
-            filteredCars = filteredCars.filter(car =>
-                kfzPrice >= car.pricePerDay
-            )
-        }
-
-        filterdCars?.setFilterdCars(filteredCars);
-
-    }, [filterUser?.userFilter, locationCarsState]);
 
 
 
     return (
         <>
-            {(!formData?.formData?.picUpLocation) ? (
-                <p>Please enter a location to see available cars.</p>
-            ) : filterdCars?.filterdCars.length === 0 ? (
-                <p>Unfortunately we could not find anything with your filters.</p>
-            ) : (
-                <div>
-                    <section className="car-list">
-                        {filterdCars?.filterdCars.slice(0, showCars).map((item, index) => (
-                            <CarItem key={index} item={item} />
-                        ))}
-                    </section>
-                    <div className="btn-more-wrp">
-                        <div className="btn-container">
-                            <button onClick={() => setShowCars(showCars + 10)} className="show-more-btn btn-main">Show more cars</button>
-                        </div>
-                        <p>{filterdCars?.filterdCars.length} Cars total</p>
+            <div>
+                <section className="car-list">
+                    {locationCarsState?.slice(0, showCars).map((item, index) => (
+                        <CarItem key={index} item={item} />
+                    ))}
+                </section>
+                <div className="btn-more-wrp">
+                    <div className="btn-container">
+                        <button onClick={() => setShowCars(showCars + 10)} className="show-more-btn btn-main">Show more cars</button>
                     </div>
+                    <p>{locationCarsState?.length} Cars total</p>
                 </div>
-            )}
+            </div>
+
         </>
     );
 };

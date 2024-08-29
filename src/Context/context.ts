@@ -52,9 +52,3 @@ interface UserFilterInputContextType {
 
 export const UserFilterContext = createContext<UserFilterInputContextType | undefined>(undefined);
 
-// # Filterd Cars - Autos die gefunden worden sind passen zum filter seitlich und die formadaten
-interface FilterdCarsContextType {
-  filterdCars: Car[];
-  setFilterdCars: React.Dispatch<React.SetStateAction<Car[] | undefined>>;
-}
-export const FilterdCarsContext = createContext<FilterdCarsContextType | undefined>(undefined);

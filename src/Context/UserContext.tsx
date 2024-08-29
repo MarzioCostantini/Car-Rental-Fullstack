@@ -32,4 +32,4 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 };
 
 export const useUserContext = () => useContext(UserContext);
-console.log("d", useUserContext);
+

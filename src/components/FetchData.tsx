@@ -1,10 +1,13 @@
 import { useContext, useEffect } from "react"
 import { CarContext, ExtraCarInfoContext } from "../Context/context";
+import supabaseClient from "../lib/supaBaseClient";
 
 const FetchData = () => {
     // Holt sich den Cars context
     const cardata = useContext(CarContext);
     const extraCarInfo = useContext(ExtraCarInfoContext);
+
+
 
     if (!cardata) {
         return <div>Loading...</div>;
@@ -12,13 +15,22 @@ const FetchData = () => {
 
 
 
-
-    // ! Autos Fetchen
+    // ! Supabase Autos holen
     useEffect(() => {
-        fetch("https://raw.githubusercontent.com/MarzioCostantini/cars/main/vehicles.json")
-            .then((res) => res.json())
-            .then(data => cardata.setCars(data))
-            .catch(err => console.error("Fehler bein fetch,", err))
+        const getData = async () => {
+            let getDataRespons = await supabaseClient.from("vehicles").select("*")
+
+            if (getDataRespons.error) {
+                console.log("Error bei daten ziehen", getDataRespons.error);
+
+            } else if (getDataRespons.data) {
+                cardata.setCars(getDataRespons.data)
+            }
+
+
+
+        }
+        getData()
     }, [])
 
 

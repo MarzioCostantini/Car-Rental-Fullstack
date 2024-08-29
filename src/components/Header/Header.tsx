@@ -11,7 +11,6 @@ const Header = () => {
     const userContext = useUserContext();
     const user = userContext?.user;
 
-    console.log("user", user);
 
 
     return (

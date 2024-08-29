@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import { Car } from './Car';
 import { useState } from 'react';
-import { CarContext, ExtraCarInfoContext, FilterdCarsContext, FormDataContext, LoadingContext, SideBarContext, UserFilterContext } from './Context/context';
+import { CarContext, ExtraCarInfoContext, FormDataContext, LoadingContext, SideBarContext, UserFilterContext } from './Context/context';
 import Loading from './pages/Loading';
 import { FormDataInterface } from './FromData';
 import { ExtraCarInfoInterface } from './ExtraCarInfo';
@@ -19,7 +19,6 @@ function App() {
   const [formData, setFormData] = useState<FormDataInterface | null>(null);
   const [extraCarInfo, setExtraCarInfo] = useState<ExtraCarInfoInterface | null>(null);
   const [userFilter, setUserFilter] = useState<UserFilterInterface | null>(null);
-  const [filterdCars, setFilterdCars] = useState<Car[]>([]);
 
   return (
     <UserProvider>
@@ -30,19 +29,17 @@ function App() {
             <FormDataContext.Provider value={{ formData, setFormData }}>
               <ExtraCarInfoContext.Provider value={{ extraCarInfo, setExtraCarInfo }}>
                 <UserFilterContext.Provider value={{ userFilter, setUserFilter }}>
-                  <FilterdCarsContext.Provider value={{ filterdCars, setFilterdCars }}>
-                    {loading ? (
-                      <Loading />
-                    ) : (
-                      <BrowserRouter>
-                        <Routes>
-                          <Route path="/" element={<Home />} />
-                          <Route path="/login" element={<LoginPage />} />
-                          <Route path="/register" element={<RegisterPage />} />
-                        </Routes>
-                      </BrowserRouter>
-                    )}
-                  </FilterdCarsContext.Provider>
+                  {loading ? (
+                    <Loading />
+                  ) : (
+                    <BrowserRouter>
+                      <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/login" element={<LoginPage />} />
+                        <Route path="/register" element={<RegisterPage />} />
+                      </Routes>
+                    </BrowserRouter>
+                  )}
                 </UserFilterContext.Provider>
               </ExtraCarInfoContext.Provider>
             </FormDataContext.Provider>
