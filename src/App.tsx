@@ -11,6 +11,7 @@ import { UserFilterInterface } from './UserFilter';
 import LoginPage from './pages/Login/LoginPage';
 import RegisterPage from './components/RegisterPage/RegistaPage';
 import { UserProvider } from './Context/UserContext';
+import Footer from './components/Footer/Footer';
 
 function App() {
   const [cars, setCars] = useState<Car[]>([]);
@@ -38,6 +39,7 @@ function App() {
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/register" element={<RegisterPage />} />
                       </Routes>
+                      <Footer />
                     </BrowserRouter>
                   )}
                 </UserFilterContext.Provider>

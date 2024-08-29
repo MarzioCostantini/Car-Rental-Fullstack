@@ -1,6 +1,6 @@
 .car-list {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 30px;
     margin-bottom: 30px;
 }
@@ -9,7 +9,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* Verteilung zwischen den Elementen */
     margin-bottom: 60px;
 }
 
@@ -17,12 +16,11 @@
     display: flex;
     justify-content: center;
     flex-grow: 1;
-    /* Damit der Button in der Mitte bleibt */
+
 }
 
 .btn-more-wrp h4 {
     margin: 0;
-    /* Entfernt den Standardabstand */
 }
 
 @media screen and (max-width: 950px) {
