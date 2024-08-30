@@ -8,6 +8,7 @@ import { useUserContext } from "../../Context/UserContext";
 import "./CarItem.css"
 import supabaseClient from "../../lib/supaBaseClient";
 import Herzfull from "../../assets/svg/HerzFull";
+import { Link } from "react-router-dom";
 
 interface CarItemProps {
     item: Car
@@ -34,7 +35,7 @@ const CarItem: React.FC<CarItemProps> = ({ item }) => {
             if (error) {
                 console.error("Fehler beim Laden der Favoriten:", error.message);
             } else if (data) {
-                // * Wandelt das Array aus Objekten zb 
+                // * Wandelt das Array aus Objekten zb
                 const carIds = data.map((favorite) => favorite.car_id);
                 setFavorites(carIds);
             }
@@ -97,6 +98,7 @@ const CarItem: React.FC<CarItemProps> = ({ item }) => {
 
     return (
         <article className="car-item">
+
             <div className="hero">
                 <h4>{item.brand} {item.model}</h4>
                 {favorites.includes(item.id) ?
@@ -111,10 +113,12 @@ const CarItem: React.FC<CarItemProps> = ({ item }) => {
                 }
             </div>
             <h6>{item.vehicleType}</h6>
-            <div className="photo">
-                <img src={item.carImg} alt={item.model} />
-                <div className="white"></div>
-            </div>
+            <Link to={`car/${item.id}`}>
+                <div className="photo">
+                    <img src={item.carImg} alt={item.model} />
+                    <div className="white"></div>
+                </div>
+            </Link>
             <div className="icons">
                 <div>
                     <Full />

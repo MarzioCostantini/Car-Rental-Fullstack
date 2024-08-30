@@ -13,6 +13,9 @@ import RegisterPage from './components/RegisterPage/RegistaPage';
 import { UserProvider } from './Context/UserContext';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
+import DetailCarPage from './pages/DetailCarPage/DetailCarPage';
+import UserProfile from './components/UserProfil/UserProfil';
+import Favorites from './pages/Favorites/Favorites';
 
 function App() {
   const [cars, setCars] = useState<Car[]>([]);
@@ -38,8 +41,13 @@ function App() {
                       <Header />
                       <Routes>
                         <Route path="/" element={<Home />} />
+                        <Route path="/car:id" element={<DetailCarPage />} />
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/register" element={<RegisterPage />} />
+
+
+                        <Route path="/favorites" element={<Favorites />} />
+                        <Route path="/user-profile" element={<UserProfile />} />
                       </Routes>
                       <Footer />
                     </BrowserRouter>

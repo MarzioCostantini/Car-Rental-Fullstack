@@ -19,9 +19,6 @@ const UserMenu = () => {
     }, [user, location]);
 
 
-    console.log("showMenu", showMenu);
-
-
     return (
         <section>
             {user ? (<div className="user-menu">
@@ -30,7 +27,7 @@ const UserMenu = () => {
 
                 {showMenu && <div className="menu-items">
                     <h4> Hi, {user?.user_metadata.first_name}</h4>
-                    <NavLink to="/profile"><CiUser /> Profile</NavLink>
+                    <NavLink to="/user-profile"><CiUser /> Profile</NavLink>
                     <NavLink to="/car-rental-history"><BsClockHistory /> Rental History</NavLink>
                     <NavLink to="/favorites"><Herz /> Favorietes</NavLink>
                     <hr />
