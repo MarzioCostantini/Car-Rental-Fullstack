@@ -6,6 +6,7 @@ import Searchbar from "../Searchbar/Searchbar";
 import { useUserContext } from "../../Context/UserContext";
 import Logout from "../Logout/Logout";
 import { Link } from "react-router-dom";
+import UserMenu from "../UserMenu/UserMenu";
 
 const Header = () => {
     const userContext = useUserContext();
@@ -23,10 +24,9 @@ const Header = () => {
                 <Herz />
                 <Notification />
                 <Settings />
-                <img className="avatar" src={user?.user_metadata.photo} alt="" />
+                <UserMenu />
 
 
-                {user ? <Logout /> : <Link to={"/login"}>Login</Link>}
 
             </div>
 

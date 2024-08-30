@@ -89,7 +89,7 @@ const RegisterPage = () => {
     return (
         <div className="container">
             <h2 className="header">Registrierung</h2>
-            <form onSubmit={handleSubmit} className="form">
+            <form onSubmit={handleSubmit} className="form-reg">
                 <div className="formGroup">
                     <label className="label">Email:</label>
                     <input

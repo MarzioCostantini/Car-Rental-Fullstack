@@ -19,6 +19,7 @@ export interface Car {
     fuel: string;
     gearType: string;
     colors: string
+    id: string
 }
 
 export interface Price {

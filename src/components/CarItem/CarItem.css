@@ -13,8 +13,6 @@
 }
 
 .hero svg {
-    fill: none;
-    stroke: var(--blue-light);
     cursor: pointer;
 }
 
