@@ -12,6 +12,7 @@ import LoginPage from './pages/Login/LoginPage';
 import RegisterPage from './components/RegisterPage/RegistaPage';
 import { UserProvider } from './Context/UserContext';
 import Footer from './components/Footer/Footer';
+import Header from './components/Header/Header';
 
 function App() {
   const [cars, setCars] = useState<Car[]>([]);
@@ -34,6 +35,7 @@ function App() {
                     <Loading />
                   ) : (
                     <BrowserRouter>
+                      <Header />
                       <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/login" element={<LoginPage />} />

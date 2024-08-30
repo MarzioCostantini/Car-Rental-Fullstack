@@ -13,10 +13,6 @@ const LoginPage = () => {
     const navigate = useNavigate();
     const userContext = useUserContext()
 
-    console.log("dd", useUserContext());
-
-
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (email && password) {

@@ -27,13 +27,15 @@ header input {
     gap: 2vw;
 }
 
-.right svg {
+.round-icon svg {
     height: 35px;
     width: 35px;
     border: 1px solid var(--gray-light);
     border-radius: 100%;
     padding: 5px;
     cursor: pointer;
+    margin: 0 10px;
+
 }
 
 .avatar {

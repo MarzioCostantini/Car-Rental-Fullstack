@@ -78,6 +78,8 @@ a {
   cursor: not-allowed;
 }
 
+
+
 .btn-alt {
   background-color: var(--main-alt-color);
   color: var(--white);
@@ -93,4 +95,10 @@ a {
 
 .btn-alt:hover {
   background-color: var(--hover-alt);
+}
+
+
+.active {
+  color: var(--main-color);
+
 }
