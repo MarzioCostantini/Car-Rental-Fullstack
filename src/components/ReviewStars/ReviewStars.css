@@ -1,0 +1,5 @@
+.stars-rev svg {
+    fill: var(--yellow);
+    height: 18px;
+    width: 18px;
+}

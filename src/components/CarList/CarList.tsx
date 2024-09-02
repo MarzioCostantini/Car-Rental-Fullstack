@@ -4,6 +4,7 @@ import { FormDataContext, UserFilterContext } from "../../Context/context";
 import CarItem from "../CarItem/CarItem";
 import { Car } from "../../Car";
 import supabaseClient from "../../lib/supaBaseClient";
+import NoResults from "../NoResults/NoResults";
 
 const CarList = () => {
     const filterUser = useContext(UserFilterContext);
@@ -74,10 +75,13 @@ const CarList = () => {
 
 
 
+    console.log(locationCarsState);
+
+
 
     return (
         <>
-            <div>
+            {locationCarsState?.length === 0 ? (<NoResults />) : (<div>
                 <section className="car-list">
                     {locationCarsState?.slice(0, showCars).map((item, index) => (
                         <CarItem key={index} item={item} />
@@ -89,7 +93,8 @@ const CarList = () => {
                     </div>
                     <p>{locationCarsState?.length} Cars total</p>
                 </div>
-            </div>
+            </div>)}
+
 
         </>
     );

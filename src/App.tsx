@@ -41,7 +41,7 @@ function App() {
                       <Header />
                       <Routes>
                         <Route path="/" element={<Home />} />
-                        <Route path="/car:id" element={<DetailCarPage />} />
+                        <Route path="/car/:id" element={<DetailCarPage />} />
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/register" element={<RegisterPage />} />
 

@@ -113,7 +113,7 @@ const CarItem: React.FC<CarItemProps> = ({ item }) => {
                 }
             </div>
             <h6>{item.vehicleType}</h6>
-            <Link to={`car/${item.id}`}>
+            <Link to={`/car/${item.id}`}>
                 <div className="photo">
                     <img src={item.carImg} alt={item.model} />
                     <div className="white"></div>
