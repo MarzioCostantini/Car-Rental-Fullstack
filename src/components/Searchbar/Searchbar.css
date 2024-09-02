@@ -41,7 +41,7 @@
     border-radius: 100px;
 }
 
-.search-results li {
+.search-results a {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -50,6 +50,6 @@
     cursor: pointer;
 }
 
-.search-results li:hover {
+.search-results a:hover {
     background-color: var(--hover);
 }

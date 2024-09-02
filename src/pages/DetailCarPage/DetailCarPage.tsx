@@ -1,16 +1,19 @@
-import { useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import "./DetailCarPage.css"
 import { useEffect, useState } from "react";
 import supabaseClient from "../../lib/supaBaseClient";
 import { VehicleDetail } from "../../DetailCar";
 import Reviews from "../../components/Reviews/Reviews";
 import ReviewStarsDurchschnitt from "../../components/ReviewStarsDurchschnitt/ReviewStarsDurchschnitt";
+import CarList from "../../components/CarList/CarList";
+import BackIcon from "../../components/BackIcon/BackIcon";
 // import Map from "../../components/Map/Map";
 
 const DetailCarPage = () => {
     const [detailData, setDetailData] = useState<VehicleDetail | null>(null)
     const { id } = useParams()
 
+    const location = useLocation()
 
 
 
@@ -62,7 +65,7 @@ const DetailCarPage = () => {
         };
 
         getData();
-    }, []);
+    }, [location]);
 
     if (!detailData) {
         return <p>Loading...</p>;
@@ -74,6 +77,7 @@ const DetailCarPage = () => {
     return (
         <>
             <section className="detail">
+                <BackIcon />
                 <div className="box-wrapper-detail">
 
                     <img src={detailData.carImg} alt="car img" />
@@ -104,8 +108,8 @@ const DetailCarPage = () => {
                         </article>
 
                         <article>
-                            <h2>${detailData.pricePerDay}/<span>day</span></h2>
-                            <button className="btn-main">Rent Now</button>
+                            <h2>${detailData.pricePerDay}/ <span>day</span></h2>
+                            <Link to={`/rent/${detailData.id}`} className="btn-main">Rent Now</Link>
                         </article>
                     </div>
                     {/* <Map cities={detailData.locations} /> */}
@@ -113,11 +117,15 @@ const DetailCarPage = () => {
 
 
                 <div className="reviews" id="reviews">
-                    <h2>Reviews <span className="btn-main">{detailData.reviews.length}</span></h2>
+                    <h4>Reviews <span>{detailData.reviews.length}</span></h4>
                     {detailData.reviews.map((item, index) => (
                         <Reviews item={item} key={index} />
                     ))}
                 </div>
+
+                <div className="detail-footer"><h3>Available Nearby</h3>
+                    <Link to="/">View All</Link></div>
+                <CarList />
             </section>
         </>
     );

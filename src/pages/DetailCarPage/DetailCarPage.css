@@ -1,6 +1,6 @@
 .detail {
     background-color: var(--bg-color);
-    padding: 30px;
+    padding: 15px 30px 30px 30px;
 }
 
 .box-wrapper-detail {
@@ -13,7 +13,7 @@
 .detail img,
 .car-meta-data,
 .reviews {
-    border-radius: 30px;
+    border-radius: 10px;
     background-color: var(--white);
 
 }
@@ -52,14 +52,44 @@
     display: flex;
     width: 250px;
     justify-content: space-between;
+}
 
-
+.reviews {
+    margin-bottom: 60px;
 }
 
 .car-meta-data article p span {
     color: #596780;
 }
 
-.reviews h2 {
+.reviews h4 {
+    margin-bottom: 60px;
+}
+
+.reviews h4 span {
+    background-color: var(--main-color);
+    color: white;
+    padding: 5px 20px;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.detail-footer {
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 30px;
+}
+
+.detail-footer h3 {
+    color: var(--blue-light);
+}
+
+.detail-footer a {
+    color: var(--main-color);
+}
+
+
+.car-meta-data article h2 span {
+    font-size: 16px;
+    color: var(--blue-light);
 }

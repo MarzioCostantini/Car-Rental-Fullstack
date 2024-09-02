@@ -5,6 +5,7 @@ import CarItem from "../CarItem/CarItem";
 import { Car } from "../../Car";
 import supabaseClient from "../../lib/supaBaseClient";
 import NoResults from "../NoResults/NoResults";
+// import { useLocation } from "react-router-dom";
 
 const CarList = () => {
     const filterUser = useContext(UserFilterContext);
@@ -13,6 +14,7 @@ const CarList = () => {
     const [showCars, setShowCars] = useState<number>(15);
     const [locationCarsState, setLocationCarsState] = useState<Car[] | null>(null);
 
+    // const location = useLocation()
 
 
 
@@ -75,7 +77,7 @@ const CarList = () => {
 
 
 
-    console.log(locationCarsState);
+
 
 
 
@@ -89,7 +91,11 @@ const CarList = () => {
                 </section>
                 <div className="btn-more-wrp">
                     <div className="btn-container">
-                        <button onClick={() => setShowCars(showCars + 10)} className="show-more-btn btn-main">Show more cars</button>
+                        {showCars < (locationCarsState?.length ?? 0) && (
+                            <button onClick={() => setShowCars(showCars + 10)} className="show-more-btn btn-main">
+                                Show more cars
+                            </button>
+                        )}
                     </div>
                     <p>{locationCarsState?.length} Cars total</p>
                 </div>

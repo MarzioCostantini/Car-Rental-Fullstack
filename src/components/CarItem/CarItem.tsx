@@ -134,7 +134,7 @@ const CarItem: React.FC<CarItemProps> = ({ item }) => {
             </div>
             <div className="footer">
                 <h4>${item.pricePerDay} / <span>day</span></h4>
-                <a className="btn-main" href="#">Rent Now</a>
+                <Link to={`/rent/${item.id}`} className="btn-main">Rent Now </Link>
             </div>
         </article>
     );
