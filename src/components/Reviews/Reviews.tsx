@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+
 import { Review } from "../../DetailCar";
 import "./Reviews.css"
 import ReviewStars from "../ReviewStars/ReviewStars";
@@ -8,22 +8,6 @@ interface IReviews {
 }
 
 const Reviews: React.FC<IReviews> = (props) => {
-    const [restStars, setRestStars] = useState<number | null>(null)
-
-
-    let maxStars: number = 5
-
-    useEffect(() => {
-
-        if (props.item.stars <= 4) {
-            const rest = maxStars - props.item.stars
-            setRestStars(rest)
-        }
-
-    }, [props])
-
-    console.log("reststenre", restStars);
-
 
     return (
         <section>

@@ -4,13 +4,13 @@ import { useEffect, useState } from "react";
 import supabaseClient from "../../lib/supaBaseClient";
 import { VehicleDetail } from "../../DetailCar";
 import Reviews from "../../components/Reviews/Reviews";
-import ReviewStars from "../../components/ReviewStars/ReviewStars";
+import ReviewStarsDurchschnitt from "../../components/ReviewStarsDurchschnitt/ReviewStarsDurchschnitt";
 
 const DetailCarPage = () => {
     const [detailData, setDetailData] = useState<VehicleDetail | null>(null)
     const { id } = useParams()
 
-    console.log({ detailData });
+
 
 
     // ! Daten anzeigen
@@ -71,14 +71,17 @@ const DetailCarPage = () => {
         <>
             <section className="detail">
                 <div className="box-wrapper-detail">
-                    <div className="detail-img">
-                        <img src={detailData.carImg} alt="car img" />
-                    </div>
+
+                    <img src={detailData.carImg} alt="car img" />
+
 
                     <div className="car-meta-data">
-                        <h1>{detailData.brand} {detailData.model}</h1>
                         <div>
+                            <h1>{detailData.brand} {detailData.model}</h1>
+
                             {/* Durchschnitt berechen stars */}
+                            <a href="#reviews">
+                                <ReviewStarsDurchschnitt stars={detailData.reviews} /></a>
                         </div>
                         <article>
                             <div>
@@ -104,7 +107,7 @@ const DetailCarPage = () => {
                 </div>
 
 
-                <div className="reviews">
+                <div className="reviews" id="reviews">
                     <h2>Reviews <span className="btn-main">{detailData.reviews.length}</span></h2>
                     {detailData.reviews.map((item, index) => (
                         <Reviews item={item} key={index} />

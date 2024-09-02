@@ -25,8 +25,13 @@ html,
 input {
   font-family: JakartaSans, Arial, Helvetica, sans-serif;
   accent-color: var(--main-color);
+  scroll-behavior: smooth;
 }
 
+.light-t {
+  color: var(--blue-light);
+  font-size: 14px;
+}
 
 * {
   margin: 0;

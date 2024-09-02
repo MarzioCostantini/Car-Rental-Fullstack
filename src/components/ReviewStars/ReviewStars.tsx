@@ -1,44 +1,43 @@
-import { useEffect, useState } from "react"
-import { IoIosStar } from "react-icons/io";
-import { IoIosStarOutline } from "react-icons/io";
-import "./ReviewStars.css"
+import { useEffect, useState } from "react";
+import { IoIosStar, IoIosStarOutline } from "react-icons/io";
+import "./ReviewStars.css";
 
 interface IStars {
-    stars: number
+    stars: number | null; // Hier anpassen
 }
 
 const ReviewStars: React.FC<IStars> = (props) => {
-    const [restStars, setRestStars] = useState<number | null>(null)
+    const [restStars, setRestStars] = useState<number>(0);
 
-
-    let maxStars: number = 5
+    const maxStars: number = 5;
 
     useEffect(() => {
-
-        if (props.stars <= 4) {
-            const rest = maxStars - props.stars
-            setRestStars(rest)
+        if (props.stars !== null && props.stars < maxStars) {
+            const rest = maxStars - props.stars;
+            setRestStars(rest);
+        } else {
+            setRestStars(0);
         }
+    }, [props.stars]);
 
-    }, [props])
+    console.log("rest", restStars);
+
+    const stars = props.stars ?? 0; // Fallback auf 0, wenn stars null gestzts ist
 
     return (
         <div className="stars-rev">
-            {
-                Array(props.stars).fill(0).map((_, index) => (
-                    <span key={index}><IoIosStar /></span>
-                ))
-            }
+            {stars > 0 && restStars >= 0 && (
+                <>
+                    {Array(stars).fill(0).map((_, index) => (
+                        <span key={index}><IoIosStar /></span>
+                    ))}
 
-            {/* Restlichen ster wenn nicht voll sind */}
-            {
-                props.stars < 5 && Array(restStars).fill(0).map((_, index) => (
-                    <span key={index}><IoIosStarOutline /></span>
-                ))
-            }
+                    {restStars > 0 && Array(restStars).fill(0).map((_, index) => (
+                        <span key={index}><IoIosStarOutline /></span>
+                    ))}
+                </>
+            )}
         </div>
-
-
     );
 }
 
