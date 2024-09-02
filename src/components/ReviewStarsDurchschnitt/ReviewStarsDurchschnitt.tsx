@@ -10,7 +10,6 @@ interface IStarDurch {
 const ReviewStarsDurchschnitt: React.FC<IStarDurch> = ({ stars }) => {
     const [durchschnitt, setDurchschnitt] = useState<number | null>(null)
     const [rating, setRating] = useState<number[]>([])
-    console.log("s", stars);
 
 
     // extrahiert alle stars in ein neues Array
@@ -29,8 +28,6 @@ const ReviewStarsDurchschnitt: React.FC<IStarDurch> = ({ stars }) => {
 
     }, [rating])
 
-
-    console.log({ durchschnitt });
 
 
 

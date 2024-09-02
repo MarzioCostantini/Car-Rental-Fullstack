@@ -5,6 +5,7 @@ import supabaseClient from "../../lib/supaBaseClient";
 import { VehicleDetail } from "../../DetailCar";
 import Reviews from "../../components/Reviews/Reviews";
 import ReviewStarsDurchschnitt from "../../components/ReviewStarsDurchschnitt/ReviewStarsDurchschnitt";
+// import Map from "../../components/Map/Map";
 
 const DetailCarPage = () => {
     const [detailData, setDetailData] = useState<VehicleDetail | null>(null)
@@ -67,6 +68,9 @@ const DetailCarPage = () => {
         return <p>Loading...</p>;
     }
 
+    console.log(detailData);
+
+
     return (
         <>
             <section className="detail">
@@ -104,6 +108,7 @@ const DetailCarPage = () => {
                             <button className="btn-main">Rent Now</button>
                         </article>
                     </div>
+                    {/* <Map cities={detailData.locations} /> */}
                 </div>
 
 

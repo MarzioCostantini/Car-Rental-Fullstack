@@ -20,7 +20,6 @@ const ReviewStars: React.FC<IStars> = (props) => {
         }
     }, [props.stars]);
 
-    console.log("rest", restStars);
 
     const stars = props.stars ?? 0; // Fallback auf 0, wenn stars null gestzts ist
 

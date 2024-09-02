@@ -1,0 +1,31 @@
+.s-review {
+    display: flex;
+    align-items: center;
+    gap: 1vw;
+    margin-bottom: 30px;
+}
+
+.s-review img {
+    height: 60px;
+}
+
+.s-review article {
+    width: 100%;
+}
+
+.s-review .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+
+}
+
+.s-review p {
+    display: block;
+    color: var(--blue-light);
+}
+
+.s-review .date {
+    margin-bottom: 5px;
+}
