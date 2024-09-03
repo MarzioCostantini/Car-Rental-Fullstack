@@ -18,6 +18,7 @@ import UserProfile from './components/UserProfil/UserProfil';
 import Favorites from './pages/Favorites/Favorites';
 import RentalPage from './pages/RentalPage/RentalPage';
 import RentalHistory from './pages/RentalHistory/RentalHistory';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 
 function App() {
@@ -49,10 +50,13 @@ function App() {
                         <Route path="/register" element={<RegisterPage />} />
 
 
-                        <Route path="/favorites" element={<Favorites />} />
-                        <Route path="/user-profile" element={<UserProfile />} />
-                        <Route path="/rent/:id" element={<RentalPage />} />
-                        <Route path="/car-rental-history" element={<RentalHistory />} />
+                        <Route element={<PrivateRoute />}>
+                          <Route path="/favorites" element={<Favorites />} />
+                          <Route path="/user-profile" element={<UserProfile />} />
+                          <Route path="/rent/:id" element={<RentalPage />} />
+                          <Route path="/my-bookings" element={<RentalHistory />} />
+                        </Route>
+
                       </Routes>
                       <Footer />
                     </BrowserRouter>

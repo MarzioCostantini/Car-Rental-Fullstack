@@ -4,6 +4,7 @@ import { useUserContext } from "../../Context/UserContext";
 import supabaseClient from "../../lib/supaBaseClient";
 import { RentalDetail } from "../../Rental";
 import UpcomingRentalsItem from "../../components/UpcomingRentalsItem/UpcomingRentalsItem";
+import Loader from "../../components/Loader/Loader";
 
 const RentalHistory = () => {
     const [detailData, setDetailData] = useState<RentalDetail[] | null>(null);
@@ -90,12 +91,12 @@ const RentalHistory = () => {
 
 
     if (!detailData) {
-        return <div>Loading...</div>;
+        return <div><Loader /></div>;
     }
 
     return (
         <div className="rental">
-            <h1>Rental History</h1>
+            <h1>My Bookings</h1>
 
             <hr />
             <section>

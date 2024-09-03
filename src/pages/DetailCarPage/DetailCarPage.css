@@ -5,7 +5,7 @@
 
 .box-wrapper-detail {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 30px;
     margin-bottom: 30px;
 }
@@ -37,7 +37,10 @@
     margin-bottom: 30px;
 }
 
-
+.box-wrapper-detail img {
+    height: 100%;
+    object-fit: cover;
+}
 
 .car-meta-data article {
     display: flex;
@@ -92,4 +95,9 @@
 .car-meta-data article h2 span {
     font-size: 16px;
     color: var(--blue-light);
+}
+
+.detail .map {
+    height: 400px;
+
 }

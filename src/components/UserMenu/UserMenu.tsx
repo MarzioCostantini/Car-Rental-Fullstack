@@ -3,9 +3,9 @@ import { useUserContext } from "../../Context/UserContext";
 import Logout from "../Logout/Logout";
 import "./UserMenu.css"
 import { useEffect, useState } from "react";
-import Herz from "../../assets/svg/Herz";
-import { BsClockHistory } from "react-icons/bs";
-import { CiUser } from "react-icons/ci";
+import { MdFavorite, MdPerson, MdPayments } from "react-icons/md";
+
+
 
 const UserMenu = () => {
     const [showMenu, setShowMenu] = useState<boolean>(false)
@@ -27,9 +27,9 @@ const UserMenu = () => {
 
                 {showMenu && <div className="menu-items">
                     <h4> Hi, {user?.user_metadata.first_name}</h4>
-                    <NavLink to="/user-profile"><CiUser /> Profile</NavLink>
-                    <NavLink to="/car-rental-history"><BsClockHistory /> Rental History</NavLink>
-                    <NavLink to="/favorites"><Herz /> Favorietes</NavLink>
+                    <NavLink to="/user-profile"><MdPerson /> Profile</NavLink>
+                    <NavLink to="/my-bookings"><MdPayments /> My Bookings</NavLink>
+                    <NavLink to="/favorites"><MdFavorite /> Favorietes</NavLink>
                     <hr />
                     <Logout />
                 </div>}

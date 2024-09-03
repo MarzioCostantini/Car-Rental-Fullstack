@@ -1,20 +1,31 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { LatLngExpression } from 'leaflet';
+import Loader from '../Loader/Loader';
+
+
 
 interface ICity {
-    stadt: string;
+    stadt: string[];
 }
 
 interface Icoords {
     lat: number;
     lng: number;
+    name: string;
 }
 
 const MapWithMarkers: React.FC<ICity> = ({ stadt }) => {
-    const [latLon, setLatLon] = useState<Icoords | null>(null);
+    const [coordinates, setCoordinates] = useState<Icoords[]>([]);
 
-    // ! Koordinaten funktion
+
+    // holt location
+    const location = useLocation()
+
+
+    // Koordinaten Funktion
     useEffect(() => {
         async function getCoordinates(cityName: string): Promise<Icoords> {
             const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(cityName)}`);
@@ -22,31 +33,37 @@ const MapWithMarkers: React.FC<ICity> = ({ stadt }) => {
 
             if (data && data.length > 0) {
                 const location = data[0];
-                return { lat: parseFloat(location.lat), lng: parseFloat(location.lon) };
+                return { lat: parseFloat(location.lat), lng: parseFloat(location.lon), name: cityName };
             } else {
                 throw new Error('Geocoding nicht gefunden');
             }
         }
 
-        getCoordinates(stadt).then(coords => {
-            setLatLon(coords);
-        }).catch(error => {
+        const fetchAllCoordinates = async () => {
+            const allCoords = await Promise.all(stadt.map(city => getCoordinates(city)));
+            setCoordinates(allCoords);
+        };
+
+        fetchAllCoordinates().catch(error => {
             console.error(error);
         });
 
     }, [stadt]);
 
-    if (!latLon) {
-        return <div>Loading...</div>;
+    if (coordinates.length === 0) {
+        return <Loader />;
     }
 
-
+    // Zoom Level der Karte anahand von
+    const center = location.pathname === "/my-bookings"
+        ? [coordinates[0].lat, coordinates[0].lng]
+        : [51.1657, 10.4515];
 
     return (
         <MapContainer
-            center={[latLon.lat, latLon.lng]}
-            zoom={10}
-            style={{ height: '100%', width: '100%' }}
+            center={center as LatLngExpression}
+            zoom={6}
+            style={{ width: '100%', height: '400px' }}
             className='map'
         >
             <TileLayer
@@ -54,9 +71,11 @@ const MapWithMarkers: React.FC<ICity> = ({ stadt }) => {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
 
-            <Marker position={[latLon.lat, latLon.lng]}>
-                <Popup>{stadt}</Popup>
-            </Marker>
+            {coordinates.map((coord, index) => (
+                <Marker key={index} position={[coord.lat, coord.lng]}>
+                    <Popup>{coord.name}</Popup>
+                </Marker>
+            ))}
         </MapContainer>
     );
 };

@@ -7,6 +7,7 @@ import Reviews from "../../components/Reviews/Reviews";
 import ReviewStarsDurchschnitt from "../../components/ReviewStarsDurchschnitt/ReviewStarsDurchschnitt";
 import CarList from "../../components/CarList/CarList";
 import BackIcon from "../../components/BackIcon/BackIcon";
+import MapWithMarkers from "../../components/Map/Map";
 
 
 // import Map from "../../components/Map/Map";
@@ -76,7 +77,6 @@ const DetailCarPage = () => {
         return <p>Loading...</p>;
     }
 
-    console.log(detailData);
 
 
     return (
@@ -117,6 +117,7 @@ const DetailCarPage = () => {
                             <Link to={`/rent/${detailData.id}`} className="btn-main">Rent Now</Link>
                         </article>
                     </div>
+                    <MapWithMarkers stadt={detailData.locations} />
 
                 </div>
 

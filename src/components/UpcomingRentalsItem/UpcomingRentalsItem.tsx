@@ -32,7 +32,7 @@ const UpcomingRentalsItem: React.FC<IUpcomingRentalsItem> = ({ item }) => {
                             <p>{item.dropoff_location}</p>
                         </div>
                     </section>
-                    <MapWithMarkers stadt={item.picup_location} />
+                    <MapWithMarkers stadt={[item.picup_location]} />
 
                 </div>
             </article>
