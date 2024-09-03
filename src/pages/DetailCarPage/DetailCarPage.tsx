@@ -7,6 +7,8 @@ import Reviews from "../../components/Reviews/Reviews";
 import ReviewStarsDurchschnitt from "../../components/ReviewStarsDurchschnitt/ReviewStarsDurchschnitt";
 import CarList from "../../components/CarList/CarList";
 import BackIcon from "../../components/BackIcon/BackIcon";
+
+
 // import Map from "../../components/Map/Map";
 
 const DetailCarPage = () => {
@@ -15,6 +17,9 @@ const DetailCarPage = () => {
 
     const location = useLocation()
 
+
+
+    console.log(detailData?.locations);
 
 
     // ! Daten anzeigen
@@ -112,7 +117,7 @@ const DetailCarPage = () => {
                             <Link to={`/rent/${detailData.id}`} className="btn-main">Rent Now</Link>
                         </article>
                     </div>
-                    {/* <Map cities={detailData.locations} /> */}
+
                 </div>
 
 

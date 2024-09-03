@@ -1,0 +1,47 @@
+.rental-item {
+    margin-bottom: 30px;
+}
+
+.rental-item h3 {
+    margin-bottom: 15px;
+}
+
+.rental-item article {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.rental-item article .top-r {
+    display: flex;
+    gap: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid var(--blue-light);
+    margin-bottom: 30px;
+}
+
+.top-r img {
+    width: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.top-r p {
+    margin-bottom: 10px;
+}
+
+.bottom-r section {
+    display: flex;
+    gap: 15px;
+    font-size: 20px;
+}
+
+.bottom-r {
+    display: flex;
+    gap: 60px;
+    align-items: center;
+}
+
+.bottom-r p:first-of-type {
+    margin-bottom: 20px;
+}

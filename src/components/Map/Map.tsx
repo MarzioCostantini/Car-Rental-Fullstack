@@ -1,38 +1,64 @@
-import React, { useState } from 'react';
-import { GetLatLon } from './getLatLon.ts';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import { useEffect, useState } from 'react';
 
-interface Imap {
-    cities: string[]
+interface ICity {
+    stadt: string;
 }
-const Maps: React.FC<Imap> = ({ cities }) => {
-    const [locations, setLocations] = useState<CityLocation[]>([]);
+
+interface Icoords {
+    lat: number;
+    lng: number;
+}
+
+const MapWithMarkers: React.FC<ICity> = ({ stadt }) => {
+    const [latLon, setLatLon] = useState<Icoords | null>(null);
+
+    // ! Koordinaten funktion
+    useEffect(() => {
+        async function getCoordinates(cityName: string): Promise<Icoords> {
+            const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(cityName)}`);
+            const data = await response.json();
+
+            if (data && data.length > 0) {
+                const location = data[0];
+                return { lat: parseFloat(location.lat), lng: parseFloat(location.lon) };
+            } else {
+                throw new Error('Geocoding nicht gefunden');
+            }
+        }
+
+        getCoordinates(stadt).then(coords => {
+            setLatLon(coords);
+        }).catch(error => {
+            console.error(error);
+        });
+
+    }, [stadt]);
+
+    if (!latLon) {
+        return <div>Loading...</div>;
+    }
 
 
-    console.log(cities);
-
-    const handleLocationsFetched = (locations: CityLocation[]) => {
-        setLocations(locations);
-    };
 
     return (
-        <div>
+        <MapContainer
+            center={[latLon.lat, latLon.lng]}
+            zoom={10}
+            style={{ height: '100%', width: '100%' }}
+            className='map'
+        >
+            <TileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            />
 
-            <GetLatLon cities={cities} onLocationsFetched={handleLocationsFetched} />
-            <MapContainer center={[51.165, 10.451]} zoom={5} style={{ height: '500px', width: '100%' }}>
-                <TileLayer
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                />
-                {locations.map((location, index) => (
-                    <Marker key={index} position={[location.lat, location.lng]}>
-                        <Popup>{location.city}</Popup>
-                    </Marker>
-                ))}
-            </MapContainer>
-        </div>
+            <Marker position={[latLon.lat, latLon.lng]}>
+                <Popup>{stadt}</Popup>
+            </Marker>
+        </MapContainer>
     );
 };
 
-export default Maps;
+export default MapWithMarkers;

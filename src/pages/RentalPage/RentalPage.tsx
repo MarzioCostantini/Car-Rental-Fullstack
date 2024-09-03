@@ -24,7 +24,7 @@ const RentalPage = () => {
     // console.log("ich bin formDa", formData?.formData);
 
 
-    // ! Daten anzeigen
+    // ! Daten holen
     useEffect(() => {
         const getData = async () => {
 

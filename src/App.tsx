@@ -17,6 +17,8 @@ import DetailCarPage from './pages/DetailCarPage/DetailCarPage';
 import UserProfile from './components/UserProfil/UserProfil';
 import Favorites from './pages/Favorites/Favorites';
 import RentalPage from './pages/RentalPage/RentalPage';
+import RentalHistory from './pages/RentalHistory/RentalHistory';
+
 
 function App() {
   const [cars, setCars] = useState<Car[]>([]);
@@ -50,6 +52,7 @@ function App() {
                         <Route path="/favorites" element={<Favorites />} />
                         <Route path="/user-profile" element={<UserProfile />} />
                         <Route path="/rent/:id" element={<RentalPage />} />
+                        <Route path="/car-rental-history" element={<RentalHistory />} />
                       </Routes>
                       <Footer />
                     </BrowserRouter>

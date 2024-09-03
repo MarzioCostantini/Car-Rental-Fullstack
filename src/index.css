@@ -132,3 +132,11 @@ a {
 .backbtn:hover svg {
   fill: var(--main-color);
 }
+
+.map {
+  border-radius: 10px;
+}
+
+.rental .map {
+  height: 500px !important;
+}
