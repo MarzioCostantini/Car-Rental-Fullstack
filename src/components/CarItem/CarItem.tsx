@@ -9,6 +9,7 @@ import "./CarItem.css"
 import supabaseClient from "../../lib/supaBaseClient";
 import Herzfull from "../../assets/svg/HerzFull";
 import { Link } from "react-router-dom";
+import Loading from "../../pages/Loading";
 
 interface CarItemProps {
     item: Car
@@ -95,10 +96,12 @@ const CarItem: React.FC<CarItemProps> = ({ item }) => {
         }
     };
 
+    if (!item) {
+        return <Loading />
+    }
 
     return (
         <article className="car-item">
-
             <div className="hero">
                 <h4>{item.brand} {item.model}</h4>
                 {favorites.includes(item.id) ?

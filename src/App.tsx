@@ -14,7 +14,7 @@ import { UserProvider } from './Context/UserContext';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import DetailCarPage from './pages/DetailCarPage/DetailCarPage';
-import UserProfile from './components/UserProfil/UserProfil';
+import UserProfile from './pages/UserProfil/UserProfil';
 import Favorites from './pages/Favorites/Favorites';
 import RentalPage from './pages/RentalPage/RentalPage';
 import RentalHistory from './pages/RentalHistory/RentalHistory';

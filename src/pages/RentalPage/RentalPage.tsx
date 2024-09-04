@@ -7,6 +7,10 @@ import { VehicleDetail } from "../../DetailCar";
 import supabaseClient from "../../lib/supaBaseClient";
 import { useUserContext } from "../../Context/UserContext";
 import { FormDataContext } from "../../Context/context";
+import BillingInfo from "../../components/BillingInfo/BillingInfo";
+import RentalInfo from "../../components/RentalInfo/RentalInfo";
+import Payment from "../../components/Payment/Payment";
+import RentalSummary from "../../components/RentalSummary/RentalSummary";
 
 const RentalPage = () => {
     const [detailData, setDetailData] = useState<VehicleDetail | null>(null)
@@ -128,9 +132,17 @@ const RentalPage = () => {
         <main className="r-page">
             <BackIcon />
 
-            <h3>{detailData.brand} {detailData.model}</h3>
+            <section className="form-wrapper">
+                <div>
+                    <BillingInfo />
+                    <RentalInfo />
+                    <Payment />
 
-            <Form />
+                </div>
+                <RentalSummary />
+            </section>
+
+
 
             <button onClick={handleRent} className="btn-main">RENT</button>
         </main>

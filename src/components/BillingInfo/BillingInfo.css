@@ -1,0 +1,62 @@
+.billing-info {
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+.billing-info-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 20px;
+}
+
+.billing-info-header h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.billing-info-header p {
+    font-size: 14px;
+    color: #7d8ca0;
+    flex-grow: 1;
+}
+
+.billing-info-header span {
+    font-size: 14px;
+    color: #7d8ca0;
+}
+
+.billing-info-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.form-group input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #e0e6ed;
+    border-radius: 8px;
+    background-color: #f7f9fc;
+    color: #7d8ca0;
+}
+
+.form-group input::placeholder {
+    color: #b0bac9;
+}

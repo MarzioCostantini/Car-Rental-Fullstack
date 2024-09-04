@@ -1,0 +1,87 @@
+.rental-info {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+}
+
+.rental-info-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 20px;
+}
+
+.rental-info-header h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+
+}
+
+.rental-info-header p {
+    font-size: 14px;
+    color: #7d8ca0;
+}
+
+.rental-info-header span {
+    font-size: 14px;
+    color: #7d8ca0;
+}
+
+.rental-info-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-section {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.section-header {
+    grid-column: span 2;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.section-header input[type="radio"] {
+    margin-right: 10px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.form-group select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #e0e6ed;
+    border-radius: 8px;
+    background-color: #f7f9fc;
+    color: #7d8ca0;
+    appearance: none;
+    cursor: pointer;
+}
+
+.form-group select::placeholder {
+    color: #b0bac9;
+}
+
+.form-group select:focus {
+    outline: none;
+    border-color: #007bff;
+}

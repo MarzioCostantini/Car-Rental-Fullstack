@@ -1,0 +1,100 @@
+.rental-summary {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    position: sticky;
+    top: 30px;
+    align-self: start;
+}
+
+.rental-summary-header h2 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.rental-summary-header p {
+    font-size: 14px;
+    color: #7d8ca0;
+    margin-bottom: 20px;
+}
+
+.rental-summary-car {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.rental-summary-car img {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    margin-right: 20px;
+    object-fit: cover;
+}
+
+.car-details h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+    color: #333;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.stars {
+    font-size: 18px;
+    color: #ffa41b;
+    margin-right: 5px;
+}
+
+.rating span {
+    font-size: 14px;
+    color: #7d8ca0;
+}
+
+.price-details {
+    border-top: 1px solid #e0e6ed;
+    padding: 20px 0;
+}
+
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.total-price {
+    padding: 10px 0;
+}
+
+.total-price-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.total-price-row h4 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.total-price-row p {
+    font-size: 14px;
+    color: #7d8ca0;
+    margin-bottom: 10px;
+}
+
+.total-price-row h3 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}

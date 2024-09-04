@@ -1,0 +1,23 @@
+.pro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+
+}
+
+.pro img {
+    height: 150px;
+    width: 150px;
+    border-radius: 100%;
+    margin-bottom: 30px;
+}
+
+.pro h1 {
+    margin-bottom: 15px;
+}
+
+.pro h3,
+.pro h4 {
+    margin-bottom: 30px;
+}
