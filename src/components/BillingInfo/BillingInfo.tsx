@@ -1,6 +1,19 @@
+import { useEffect } from "react";
 import "./BillingInfo.css"
 
-const BillingInfo = () => {
+interface IBilling {
+    userName: (value: string) => void;
+    phone: (value: string) => void;
+    adress: (value: string) => void;
+    city: (value: string) => void;
+}
+
+const BillingInfo: React.FC<IBilling> = ({ userName, phone, adress, city }) => {
+
+
+
+
+
     return (
 
         <section className="billing-info">
@@ -15,19 +28,19 @@ const BillingInfo = () => {
             <form className="billing-info-form">
                 <div className="form-group">
                     <label htmlFor="name">Name</label>
-                    <input type="text" id="name" placeholder="Your name" />
+                    <input onChange={(e: React.ChangeEvent<HTMLInputElement>) => userName(e.target.value)} type="text" id="name" placeholder="Your name" />
                 </div>
                 <div className="form-group">
                     <label htmlFor="phone">Phone Number</label>
-                    <input type="tel" id="phone" placeholder="Phone number" />
+                    <input onChange={(e: React.ChangeEvent<HTMLInputElement>) => phone(e.target.value)} type="tel" id="phone" placeholder="Phone number" />
                 </div>
                 <div className="form-group">
                     <label htmlFor="address">Address</label>
-                    <input type="text" id="address" placeholder="Address" />
+                    <input onChange={(e: React.ChangeEvent<HTMLInputElement>) => adress(e.target.value)} type="text" id="address" placeholder="Address" />
                 </div>
                 <div className="form-group">
                     <label htmlFor="city">Town / City</label>
-                    <input type="text" id="city" placeholder="Town or city" />
+                    <input onChange={(e: React.ChangeEvent<HTMLInputElement>) => city(e.target.value)} type="text" id="city" placeholder="Town or city" />
                 </div>
             </form>
         </section>

@@ -2,18 +2,16 @@ import { useContext, useEffect, useState } from "react";
 import Arrows from "../../assets/svg/Arrows";
 import "./Form.css";
 import { FormDataContext } from "../../Context/context";
-import { FormDataInterface } from '../../FromData';
+import { checkDates } from "../Function/CheckDate";
+import Loader from "../Loader/Loader";
 
 const Form = () => {
-    const formContext = useContext(FormDataContext);
-
+    const formData = useContext(FormDataContext);
     const [locData, setLocData] = useState<string[]>([]);
 
-    const [picLoc, setPicLoc] = useState<string>(formContext?.formData?.picUpLocation || "");
-    const [picDate, setPicDate] = useState<string>(formContext?.formData?.picUpDate || "");
-    const [dropDate, setDropDate] = useState<string>(formContext?.formData?.dropOffDate || "");
-    const [picTime, setPicTime] = useState<string>(formContext?.formData?.picUpTime || "");
-    const [dropTime, setDropTime] = useState<string>(formContext?.formData?.dropOffTime || "");
+
+    if (!formData)
+        return <Loader />
 
     // Fetch Locations
     useEffect(() => {
@@ -23,46 +21,15 @@ const Form = () => {
             .catch(err => console.error(err));
     }, []);
 
+    // Überprüfen der Daten nach Änderungen
     useEffect(() => {
-
-        // Checkt ob datum hinter abgabe vor den aboldatum ist
-        let date1 = new Date(picDate || "");
-        let date2 = new Date(dropDate || "");
-
-        let DifferenceInTime =
-            date2.getTime() - date1.getTime();
-
-
-        let DifferenceInDays =
-            Math.round
-                (DifferenceInTime / (1000 * 3600 * 24));
-
-        if (DifferenceInDays < 0) {
-            alert("Drop-off date cannot be before the pick-up date"); setPicDate("")
-            setDropDate("")
-            setPicDate("")
-            return
+        if (formData?.formData?.picUpDate && formData?.formData?.dropOffDate) {
+            const isValid = checkDates(formData.formData.picUpDate, formData.formData.dropOffDate, formData);
+            if (isValid) {
+                console.log("Daten sind gültig");
+            }
         }
-
-        if (DifferenceInDays === 0) {
-            alert("Mindestbuchzeit muss 1 Tag sein")
-            setDropDate("")
-            setPicDate("")
-            return
-        }
-
-
-        const formDataInput: FormDataInterface = {
-            picUpLocation: picLoc,
-            picUpDate: picDate,
-            picUpTime: picTime,
-            dropOffLocation: picLoc, //same wie picLoaction
-            dropOffDate: dropDate,
-            dropOffTime: dropTime,
-        };
-
-        formContext?.setFormData(formDataInput);
-    }, [picLoc, picDate, dropDate, picTime, dropTime]);
+    }, [formData?.formData?.picUpDate, formData?.formData?.dropOffDate]);
 
     return (
         <section className="form">
@@ -74,8 +41,11 @@ const Form = () => {
                         <select
                             name="loc"
                             id="loc"
-                            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setPicLoc(e.target.value)}
-                            value={picLoc}
+                            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => formData.setFormData({
+                                ...formData.formData,
+                                picUpLocation: e.target.value
+                            })}
+                            value={formData.formData?.picUpLocation || ""}
                         >
                             <option value="" disabled hidden>Please select</option>
                             {locData.map((item, index) => (
@@ -87,20 +57,26 @@ const Form = () => {
                     <div>
                         <label htmlFor="date">Date</label>
                         <input
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPicDate(e.target.value)}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => formData.setFormData({
+                                ...formData.formData,
+                                picUpDate: e.target.value
+                            })}
                             type="date"
                             id="date"
-                            value={picDate}
+                            value={formData.formData?.picUpDate || ""}
                         />
                     </div>
                     <div className="line"></div>
                     <div>
                         <label htmlFor="time">Time</label>
                         <input
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPicTime(e.target.value)}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => formData.setFormData({
+                                ...formData.formData,
+                                picUpTime: e.target.value
+                            })}
                             type="time"
                             id="time"
-                            value={picTime}
+                            value={formData.formData?.picUpTime || ""}
                         />
                     </div>
                 </div>
@@ -113,7 +89,7 @@ const Form = () => {
                 <div className="inner">
                     <div>
                         <label htmlFor="loc">Location:</label>
-                        <select name="loc" id="loc" disabled value={picLoc}>
+                        <select name="loc" id="loc" disabled value={formData.formData?.picUpLocation || ""}>
                             <option value="" disabled hidden>Please select</option>
                             {locData.map((item, index) => (
                                 <option key={index} value={item}>{item}</option>
@@ -124,20 +100,26 @@ const Form = () => {
                     <div>
                         <label htmlFor="date">Date</label>
                         <input
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDropDate(e.target.value)}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => formData.setFormData({
+                                ...formData.formData,
+                                dropOffDate: e.target.value
+                            })}
                             type="date"
                             id="date"
-                            value={dropDate}
+                            value={formData.formData?.dropOffDate || ""}
                         />
                     </div>
                     <div className="line"></div>
                     <div>
                         <label htmlFor="time">Time</label>
                         <input
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDropTime(e.target.value)}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => formData.setFormData({
+                                ...formData.formData,
+                                dropOffTime: e.target.value
+                            })}
                             type="time"
                             id="time"
-                            value={dropTime}
+                            value={formData.formData?.dropOffTime || ""}
                         />
                     </div>
                 </div>

@@ -1,6 +1,17 @@
+import { VehicleDetail } from "../../DetailCar";
+import ReviewStarsDurchschnitt from "../ReviewStarsDurchschnitt/ReviewStarsDurchschnitt";
 import "./RentalSummary.css"
 
-const RentalSummary = () => {
+interface PropsCar {
+    detaildata: VehicleDetail,
+    totalDay: number | null,
+    totalPrice: number | null
+}
+
+const RentalSummary: React.FC<PropsCar> = (props) => {
+    console.log(props);
+
+
     return (
         <section className="rental-summary">
             <div className="rental-summary-header">
@@ -9,20 +20,24 @@ const RentalSummary = () => {
             </div>
 
             <div className="rental-summary-car">
-                <img src="https://media.gq-magazin.de/photos/62876c8d2586a05028020d4d/master/w_1600%2Cc_limit/Auto-Mercedes-Benz-Versteigerung-300-SLR-Uhlenhaut-Coupe%25CC%2581.jpg" alt="Nissan GT-R" />
+                <img src={props.detaildata.carImg} alt={props.detaildata.model} />
                 <div className="car-details">
-                    <h3>Nissan GT – R</h3>
+                    <h3>{props.detaildata.brand} {props.detaildata.model}</h3>
                     <div className="rating">
-                        <span className="stars">★★★★☆</span>
-                        <span>440+ Reviewer</span>
+
+                        <ReviewStarsDurchschnitt stars={props.detaildata.reviews} />
                     </div>
                 </div>
             </div>
 
             <div className="price-details">
                 <div className="price-row">
-                    <span>Subtotal</span>
-                    <span>$80.00</span>
+                    <span>Price per Day</span>
+                    <span>${props.detaildata.pricePerDay}</span>
+                </div>
+                <div className="price-row">
+                    <span>Total Days</span>
+                    <span>{props.totalDay ? `${props.totalDay} Days` : "Please select a date"}</span>
                 </div>
                 <div className="price-row">
                     <span>Tax</span>
@@ -32,12 +47,17 @@ const RentalSummary = () => {
 
             <div className="total-price">
                 <div className="total-price-row">
-                    <div>
-                        <h4>Total Rental Price</h4>
-                        <p>Overall price and includes rental discount</p>
-                    </div>
+                    {props.totalPrice &&
+                        <>
+                            <div>
+                                <h4>Total Rental Price</h4>
+                                <p>Overall price and includes rental discount</p>
+                            </div> <h3>${props.totalPrice}</h3>
+                        </>}
 
-                    <h3>$80.00</h3>
+
+
+
                 </div>
             </div>
         </section>

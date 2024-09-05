@@ -1,6 +1,5 @@
 import { useLocation, useParams } from "react-router-dom";
 import BackIcon from "../../components/BackIcon/BackIcon";
-import Form from "../../components/Form/Form";
 import "./RentalPage.css"
 import { useContext, useEffect, useState } from "react";
 import { VehicleDetail } from "../../DetailCar";
@@ -11,22 +10,72 @@ import BillingInfo from "../../components/BillingInfo/BillingInfo";
 import RentalInfo from "../../components/RentalInfo/RentalInfo";
 import Payment from "../../components/Payment/Payment";
 import RentalSummary from "../../components/RentalSummary/RentalSummary";
+import Loader from "../../components/Loader/Loader";
+import { checkDates } from "../../components/Function/CheckDate";
 
 const RentalPage = () => {
     const [detailData, setDetailData] = useState<VehicleDetail | null>(null)
+
+
+
+    // * Billing Info
+    const [userName, setUserName] = useState<string>("")
+    const [phone, setPhone] = useState<string>("")
+    const [adress, setAdress] = useState<string>("")
+    const [city, setCity] = useState<string>("")
+
+    // * Total Price
+    const [totalPrice, setTotalPrice] = useState<number | null>(null)
+    const [totalDays, setTotalDays] = useState<number | null>(null)
+
+
+
+
     const { id } = useParams()
 
     const location = useLocation()
 
     const userContext = useUserContext();
+    let user = userContext?.user;
+
     const formData = useContext(FormDataContext);
 
-    let user = userContext?.user;
-    console.log(user);
+
+    // !Berechnung von Tagen und Gesamtpreis
+    useEffect(() => {
+        console.log("Datenänderung:", {
+            picUpDate: formData?.formData?.picUpDate,
+            dropOffDate: formData?.formData?.dropOffDate,
+            pricePerDay: detailData?.pricePerDay,
+        });
+
+        if (formData?.formData?.picUpDate && formData?.formData?.dropOffDate && detailData?.pricePerDay) {
+            // Überprüfen, ob die Daten valide sind
+            const isValid = checkDates(formData?.formData?.picUpDate, formData?.formData?.dropOffDate, formData);
+
+            if (isValid) {
+                // Berechnung von Tagen
+                let date1 = new Date(formData.formData.picUpDate);
+                let date2 = new Date(formData.formData.dropOffDate);
+
+                let differenceInTime = date2.getTime() - date1.getTime();
+                let differenceInDays = Math.round(differenceInTime / (1000 * 3600 * 24));
+
+                setTotalDays(differenceInDays);
+
+                // Berechnung des Gesamtpreises
+                let totalPrice = differenceInDays * detailData.pricePerDay;
+                setTotalPrice(totalPrice);
+            }
+        } else {
+            console.log("Fehlende Daten für die Berechnung!");
+        }
+    }, [formData?.formData?.picUpDate, formData?.formData?.dropOffDate, detailData?.pricePerDay]);
 
 
-    // console.log("ich bin formDa", formData?.formData);
 
+
+    console.log("RentalPage.tsx ", { totalPrice }, { totalDays });
 
     // ! Daten holen
     useEffect(() => {
@@ -78,28 +127,17 @@ const RentalPage = () => {
         getData();
     }, [location]);
 
-    if (!detailData) {
-        return <p>Loading...</p>;
-    }
+    if (!detailData) return <Loader />;
 
+
+
+
+
+
+
+
+    //! Schreibt Daten in die DB!
     const handleRent = async () => {
-
-        // Berechnung von Tagen
-        let date1 = new Date(formData?.formData?.picUpDate || "");
-        let date2 = new Date(formData?.formData?.dropOffDate || "");
-
-        let differenceInTime =
-            date2.getTime() - date1.getTime();
-
-
-        let differenceInDays =
-            Math.round
-                (differenceInTime / (1000 * 3600 * 24));
-
-        // Berrechnung von Totalen Preis
-        let totalPrice = differenceInDays * detailData.pricePerDay
-
-
         const { data, error } = await supabaseClient
             .from("rental")
             .insert([
@@ -113,7 +151,7 @@ const RentalPage = () => {
                     dropoff_location: formData?.formData?.dropOffLocation,
                     dropoff_date: formData?.formData?.dropOffDate,
                     dropoff_time: formData?.formData?.dropOffTime,
-                    total_days: differenceInDays,
+
                     total_price: totalPrice,
                 },
             ]);
@@ -128,18 +166,19 @@ const RentalPage = () => {
     }
 
 
+
     return (
         <main className="r-page">
             <BackIcon />
 
             <section className="form-wrapper">
                 <div>
-                    <BillingInfo />
-                    <RentalInfo />
+                    <BillingInfo userName={setUserName} phone={setPhone} adress={setAdress} city={setCity} />
+                    <RentalInfo formData={formData} />
                     <Payment />
 
                 </div>
-                <RentalSummary />
+                <RentalSummary detaildata={detailData} totalDay={totalDays} totalPrice={totalPrice} />
             </section>
 
 

@@ -144,3 +144,19 @@ p {
 .rental .map {
   height: 200px !important;
 }
+
+
+/* Form */
+
+.form-group input {
+  color: var(--text-color);
+}
+
+.form-group input::placeholder {
+  color: #b0bac9;
+
+}
+
+.form-group input:focus {
+  color: var(--text-color);
+}

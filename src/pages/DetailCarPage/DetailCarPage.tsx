@@ -20,8 +20,6 @@ const DetailCarPage = () => {
 
 
 
-    console.log(detailData?.locations);
-
 
     // ! Daten anzeigen
     useEffect(() => {
