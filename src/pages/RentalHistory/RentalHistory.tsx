@@ -20,7 +20,6 @@ const RentalHistory = () => {
 
 
     useEffect(() => {
-        const today = new Date().toISOString().split('T')[0];
 
         const fetchRentalData = async () => {
             let query = supabaseClient
@@ -38,6 +37,14 @@ const RentalHistory = () => {
                     created_at,
                     total_days,
                     total_price,
+                    payment,
+                    paid,
+                    adress,
+                    town,
+                    phone_number,
+                    marketing_checked,
+                    terms_checked,
+                    user_name,
                     vehicles!rental_car_id_fkey (
                         id,
                         brand,
@@ -61,11 +68,22 @@ const RentalHistory = () => {
                 `)
                 .eq('user_id', user.id);
 
+
+
             // Apply the correct filter based on the 'time' state
+            const today = new Date().toISOString().split('T')[0];
+
+
+            console.log({ today });
+
+            console.log(time);
+
+
+            // In der Abfrage
             if (time === "Upcoming") {
-                query = query.gt('picup_date', today); // Future rentals
+                query = query.gte('dropoff_date', today);
             } else if (time === "History") {
-                query = query.lt('dropoff_date', today); // Past rentals
+                query = query.lt('dropoff_date', today);  // Vergangene Buchungen (< heute)
             }
 
             // Add ordering
@@ -73,13 +91,15 @@ const RentalHistory = () => {
 
             const { data, error } = await query;
 
+
+
             if (error) {
                 console.error('Error fetching rental data:', error);
                 return;
             }
 
             if (data) {
-                setDetailData(data as RentalDetail[]);
+                setDetailData(data as unknown as RentalDetail[]);
             }
         };
 

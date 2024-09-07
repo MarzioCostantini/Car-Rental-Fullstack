@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import "./BillingInfo.css"
 
 interface IBilling {
@@ -9,10 +8,6 @@ interface IBilling {
 }
 
 const BillingInfo: React.FC<IBilling> = ({ userName, phone, adress, city }) => {
-
-
-
-
 
     return (
 

@@ -12,10 +12,10 @@ import Payment from "../../components/Payment/Payment";
 import RentalSummary from "../../components/RentalSummary/RentalSummary";
 import Loader from "../../components/Loader/Loader";
 import { checkDates } from "../../components/Function/CheckDate";
+import Confirmation from "../../components/Confirmation/Confirmation";
 
 const RentalPage = () => {
     const [detailData, setDetailData] = useState<VehicleDetail | null>(null)
-
 
 
     // * Billing Info
@@ -24,11 +24,20 @@ const RentalPage = () => {
     const [adress, setAdress] = useState<string>("")
     const [city, setCity] = useState<string>("")
 
-    // * Total Price
+    // * Total Price & Days of Rent
     const [totalPrice, setTotalPrice] = useState<number | null>(null)
     const [totalDays, setTotalDays] = useState<number | null>(null)
 
+    // * Payment Methode
+    const [payment, setPayment] = useState<string>("Credit Card")
+    console.log("Payment in RentalPage", payment);
 
+    // * Confirmation Info
+    const [marketingChecked, setMarketingChecked] = useState<boolean>(false);
+    const [termsChecked, setTermsChecked] = useState<boolean>(false);
+
+
+    console.log({ marketingChecked }, { termsChecked });
 
 
     const { id } = useParams()
@@ -131,11 +140,6 @@ const RentalPage = () => {
 
 
 
-
-
-
-
-
     //! Schreibt Daten in die DB!
     const handleRent = async () => {
         const { data, error } = await supabaseClient
@@ -148,11 +152,19 @@ const RentalPage = () => {
                     picup_location: formData?.formData?.picUpLocation,
                     picup_date: formData?.formData?.picUpDate,
                     picup_time: formData?.formData?.picUpTime,
-                    dropoff_location: formData?.formData?.dropOffLocation,
+                    dropoff_location: formData?.formData?.picUpLocation,
                     dropoff_date: formData?.formData?.dropOffDate,
                     dropoff_time: formData?.formData?.dropOffTime,
-
+                    total_days: totalDays,
                     total_price: totalPrice,
+                    payment: payment,
+                    paid: true,
+                    user_name: userName,
+                    adress: adress,
+                    town: city,
+                    phone_number: phone,
+                    marketing_checked: marketingChecked,
+                    terms_checked: termsChecked
                 },
             ]);
         if (error) {
@@ -175,7 +187,8 @@ const RentalPage = () => {
                 <div>
                     <BillingInfo userName={setUserName} phone={setPhone} adress={setAdress} city={setCity} />
                     <RentalInfo formData={formData} />
-                    <Payment />
+                    <Payment setPayment={setPayment} payment={payment} />
+                    <Confirmation setMarketingChecked={setMarketingChecked} setTermsChecked={setTermsChecked} termsChecked={termsChecked} marketingChecked={marketingChecked} />
 
                 </div>
                 <RentalSummary detaildata={detailData} totalDay={totalDays} totalPrice={totalPrice} />
@@ -183,7 +196,7 @@ const RentalPage = () => {
 
 
 
-            <button onClick={handleRent} className="btn-main">RENT</button>
+            <button onClick={handleRent} className="btn-main">RENT NOW</button>
         </main>
     );
 }

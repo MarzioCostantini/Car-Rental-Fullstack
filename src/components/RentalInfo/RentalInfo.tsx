@@ -73,9 +73,9 @@ const RentalInfo: React.FC<IChefForm> = ({ formData }) => {
                                 picUpLocation: e.target.value
                             })}
                         >
-                            <option value="" disabled>Please select</option>
+                            <option value="" disabled selected>Please select</option>
                             {locData.map((item, index) => (
-                                <option key={index} value={item} >{item}</option>
+                                <option key={index} value={item}>{item}</option>
                             ))}
                         </select>
                     </div>
@@ -116,8 +116,7 @@ const RentalInfo: React.FC<IChefForm> = ({ formData }) => {
                         <select id="dropoff-location" value={formData.formData?.picUpLocation}
                             disabled
                         >
-                            <option value="" disabled >Please select</option>
-
+                            <option value="" disabled selected>Please select</option>^
                             {locData.map((item, index) => (
                                 <option key={index} value={item}>{item}</option>
                             ))}

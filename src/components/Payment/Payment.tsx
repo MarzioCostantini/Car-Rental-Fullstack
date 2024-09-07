@@ -1,11 +1,16 @@
-import { useState } from "react";
 import "./Payment.css"
 
-const Payment = () => {
-    const [selectedMethod, setSelectedMethod] = useState('credit-card');
+interface IPaymentProps {
+    payment: string
+    setPayment: (value: string) => void;
+}
+
+
+const Payment: React.FC<IPaymentProps> = (props) => {
+
 
     const handleMethodChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSelectedMethod(event.target.value);
+        props.setPayment(event.target.value);
     };
 
     return (<section>
@@ -24,8 +29,8 @@ const Payment = () => {
                         <input
                             type="radio"
                             name="payment-method"
-                            value="credit-card"
-                            checked={selectedMethod === 'credit-card'}
+                            value="Credit Card"
+                            checked={props.payment === 'Credit Card'}
                             onChange={handleMethodChange}
                         />
                         <span>Credit Card</span>
@@ -42,8 +47,8 @@ const Payment = () => {
                         <input
                             type="radio"
                             name="payment-method"
-                            value="paypal"
-                            checked={selectedMethod === 'paypal'}
+                            value="PayPal"
+                            checked={props.payment === 'PayPal'}
                             onChange={handleMethodChange}
                         />
                         <span>PayPal</span>
@@ -57,8 +62,8 @@ const Payment = () => {
                         <input
                             type="radio"
                             name="payment-method"
-                            value="bitcoin"
-                            checked={selectedMethod === 'bitcoin'}
+                            value="Bitcoin"
+                            checked={props.payment === 'Bitcoin'}
                             onChange={handleMethodChange}
                         />
                         <span>Bitcoin</span>

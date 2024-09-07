@@ -35,5 +35,5 @@ export interface RentalDetail {
     created_at: string;
     total_days: number;
     total_price: number;
-    vehicles: VehicleDetail;
+    vehicles: VehicleDetail[];
 }

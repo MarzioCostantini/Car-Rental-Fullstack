@@ -9,8 +9,6 @@ interface PropsCar {
 }
 
 const RentalSummary: React.FC<PropsCar> = (props) => {
-    console.log(props);
-
 
     return (
         <section className="rental-summary">
@@ -36,8 +34,10 @@ const RentalSummary: React.FC<PropsCar> = (props) => {
                     <span>${props.detaildata.pricePerDay}</span>
                 </div>
                 <div className="price-row">
-                    <span>Total Days</span>
-                    <span>{props.totalDay ? `${props.totalDay} Days` : "Please select a date"}</span>
+                    {props.totalDay && <>
+                        <span>Total Days</span>
+                        <span>{props.totalDay} {props.totalDay === 1 ? "Day" : "Days"}  </span>
+                    </>}
                 </div>
                 <div className="price-row">
                     <span>Tax</span>

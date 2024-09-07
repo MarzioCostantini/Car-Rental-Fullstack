@@ -19,6 +19,7 @@ import Favorites from './pages/Favorites/Favorites';
 import RentalPage from './pages/RentalPage/RentalPage';
 import RentalHistory from './pages/RentalHistory/RentalHistory';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import Confirmation from './pages/ConfirmationPage/Confirmation';
 
 
 function App() {
@@ -55,6 +56,7 @@ function App() {
                           <Route path="/user-profile" element={<UserProfile />} />
                           <Route path="/rent/:id" element={<RentalPage />} />
                           <Route path="/my-bookings" element={<RentalHistory />} />
+                          <Route path="/confirmation" element={<Confirmation />} />
                         </Route>
 
                       </Routes>
