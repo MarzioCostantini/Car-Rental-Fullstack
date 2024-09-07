@@ -1,7 +1,8 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import BackIcon from "../../components/BackIcon/BackIcon";
 import "./RentalPage.css"
 import { useContext, useEffect, useState } from "react";
+import { v4 as uuidv4 } from 'uuid'
 import { VehicleDetail } from "../../DetailCar";
 import supabaseClient from "../../lib/supaBaseClient";
 import { useUserContext } from "../../Context/UserContext";
@@ -35,14 +36,11 @@ const RentalPage = () => {
     // * Confirmation Info
     const [marketingChecked, setMarketingChecked] = useState<boolean>(false);
     const [termsChecked, setTermsChecked] = useState<boolean>(false);
-
-
-    console.log({ marketingChecked }, { termsChecked });
-
+    const [message, setMessage] = useState<string | null>(null)
 
     const { id } = useParams()
-
     const location = useLocation()
+    const navigate = useNavigate()
 
     const userContext = useUserContext();
     let user = userContext?.user;
@@ -52,11 +50,7 @@ const RentalPage = () => {
 
     // !Berechnung von Tagen und Gesamtpreis
     useEffect(() => {
-        console.log("Datenänderung:", {
-            picUpDate: formData?.formData?.picUpDate,
-            dropOffDate: formData?.formData?.dropOffDate,
-            pricePerDay: detailData?.pricePerDay,
-        });
+
 
         if (formData?.formData?.picUpDate && formData?.formData?.dropOffDate && detailData?.pricePerDay) {
             // Überprüfen, ob die Daten valide sind
@@ -83,8 +77,13 @@ const RentalPage = () => {
 
 
 
+    // create UUID
+    let rentalUuid = uuidv4()
 
-    console.log("RentalPage.tsx ", { totalPrice }, { totalDays });
+    console.log(rentalUuid);
+
+
+
 
     // ! Daten holen
     useEffect(() => {
@@ -140,40 +139,71 @@ const RentalPage = () => {
 
 
 
-    //! Schreibt Daten in die DB!
+    //#  Schreibt Daten in die DB!
     const handleRent = async () => {
-        const { data, error } = await supabaseClient
-            .from("rental")
-            .insert([
-                {
 
-                    user_id: user?.id,
-                    car_id: detailData.id,
-                    picup_location: formData?.formData?.picUpLocation,
-                    picup_date: formData?.formData?.picUpDate,
-                    picup_time: formData?.formData?.picUpTime,
-                    dropoff_location: formData?.formData?.picUpLocation,
-                    dropoff_date: formData?.formData?.dropOffDate,
-                    dropoff_time: formData?.formData?.dropOffTime,
-                    total_days: totalDays,
-                    total_price: totalPrice,
-                    payment: payment,
-                    paid: true,
-                    user_name: userName,
-                    adress: adress,
-                    town: city,
-                    phone_number: phone,
-                    marketing_checked: marketingChecked,
-                    terms_checked: termsChecked
-                },
-            ]);
-        if (error) {
-            console.error('Fehler beim Hinzufügen der Buchung:', error);
+
+
+        // ! Check if all fields are filled
+        if (
+            user?.id &&
+            detailData?.id &&
+            formData?.formData?.picUpLocation &&
+            formData?.formData?.picUpDate &&
+            formData?.formData?.picUpTime &&
+            formData?.formData?.dropOffDate &&
+            formData?.formData?.dropOffTime &&
+            userName &&
+            adress &&
+            city &&
+            phone &&
+            totalDays !== null &&
+            totalPrice !== null &&
+            termsChecked &&
+            marketingChecked
+        ) {
+
+
+            // ! Schreibt Daten in die DB
+            const { data, error } = await supabaseClient
+                .from("rental")
+                .insert([
+                    {
+                        id: rentalUuid,
+                        user_id: user?.id,
+                        car_id: detailData.id,
+                        picup_location: formData?.formData?.picUpLocation,
+                        picup_date: formData?.formData?.picUpDate,
+                        picup_time: formData?.formData?.picUpTime,
+                        dropoff_location: formData?.formData?.picUpLocation,
+                        dropoff_date: formData?.formData?.dropOffDate,
+                        dropoff_time: formData?.formData?.dropOffTime,
+                        total_days: totalDays,
+                        total_price: totalPrice,
+                        payment: payment,
+                        paid: true,
+                        user_name: userName,
+                        adress: adress,
+                        town: city,
+                        phone_number: phone,
+                        marketing_checked: marketingChecked,
+                        terms_checked: termsChecked
+                    },
+                ]);
+            if (error) {
+                console.error('Fehler beim Hinzufügen der Buchung:', error);
+            } else {
+                console.log('buchung erfolgreich hinzugefügt:', data);
+                navigate(`/confirmation/${rentalUuid}`)
+
+
+            }
+
         } else {
-            console.log('buchung erfolgreich hinzugefügt:', data);
-            // Formular zurücksetzen
+            setMessage("Please fill in all required fields and check the confirmation checkboxes. ")
 
         }
+
 
     }
 
@@ -194,7 +224,7 @@ const RentalPage = () => {
                 <RentalSummary detaildata={detailData} totalDay={totalDays} totalPrice={totalPrice} />
             </section>
 
-
+            <p>{message && message}</p>
 
             <button onClick={handleRent} className="btn-main">RENT NOW</button>
         </main>

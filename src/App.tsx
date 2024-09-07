@@ -56,7 +56,7 @@ function App() {
                           <Route path="/user-profile" element={<UserProfile />} />
                           <Route path="/rent/:id" element={<RentalPage />} />
                           <Route path="/my-bookings" element={<RentalHistory />} />
-                          <Route path="/confirmation" element={<Confirmation />} />
+                          <Route path="/confirmation/:id" element={<Confirmation />} />
                         </Route>
 
                       </Routes>
