@@ -7,13 +7,20 @@ import { SingleRentalDetail } from '../../SingleRental';
 
 const Confirmation = () => {
     const [rentalInfo, setRentalInfo] = useState<SingleRentalDetail | null>(null)
+    const [loading, setLoading] = useState<boolean>(true)
     const location = useLocation()
 
     const { id } = useParams()
 
+    // Ladeanimation
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false)
+        }, 2000);
+    }, [])
 
 
-
+    // Holt Daten von rental via rental ID
     useEffect(() => {
         const getData = async () => {
             const rentResponst = await supabaseClient
@@ -80,9 +87,12 @@ const Confirmation = () => {
 
 
 
-    console.log(rentalInfo);
+    console.log({ loading });
+
 
     if (!rentalInfo) return <Loader />
+    if (loading) return <Loader />
+
 
     return (
         <div className="confirmation">
@@ -99,7 +109,7 @@ const Confirmation = () => {
                             <p>Pickup Location: {rentalInfo.picup_location}</p>
                             <p>Pickup Date: {rentalInfo.picup_date} - {rentalInfo.picup_time}</p>
                             <p>Dropoff Location: {rentalInfo.dropoff_location}</p>
-                            <p>Dropoff Date: {rentalInfo.dropoff_date}- {rentalInfo.dropoff_time}</p>
+                            <p>Dropoff Date: {rentalInfo.dropoff_date} - {rentalInfo.dropoff_time}</p>
                             <p>Total Price: ${rentalInfo.total_price}</p>
                         </div>
                     </div>
