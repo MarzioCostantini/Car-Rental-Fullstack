@@ -41,6 +41,6 @@ interface VehicleDetail {
     marketing_checked: boolean;
     terms_checked: boolean;
     created_at: string;
-    vehicles: VehicleDetail[]; 
+    vehicles: VehicleDetail[] | VehicleDetail; 
   }
   
