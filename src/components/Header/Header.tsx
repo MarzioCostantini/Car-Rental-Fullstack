@@ -1,5 +1,4 @@
 import "./Header.css"
-import Herz from "../../assets/svg/Herz";
 import Notification from "../../assets/svg/Notification";
 import Settings from "../../assets/svg/Settings";
 import Searchbar from "../Searchbar/Searchbar";
@@ -18,7 +17,7 @@ const Header = () => {
             </div>
             <div className="right">
                 <div className="round-icon">
-                    <Herz />
+
                     <Notification />
                     <Settings />
                 </div>

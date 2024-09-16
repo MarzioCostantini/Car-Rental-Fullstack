@@ -17,7 +17,7 @@ const FilterBar = () => {
     const [selectedDriveTypes, setSelectedDriveTypes] = useState<string[]>(filterData?.userFilter?.drivesType || []);
     const [selectedGears, setSelectedGears] = useState<string[]>(filterData?.userFilter?.gear || []);
 
-    // Effekt, um die Filtereinstellungen im Kontext zu speichern, wenn sich der Zustand ändert
+    // sepichert in kontext
     useEffect(() => {
         const newData: UserFilterInterface = {
             type: selectedTypes,
@@ -31,14 +31,14 @@ const FilterBar = () => {
     }, [priceRange, selectedTypes, selectedColors, selectedDriveTypes, selectedGears]);
 
 
-    // Effekt, um die Filter zurückzusetzen, wenn sich die picUpLocation ändert
+    // reset vopn filter
     useEffect(() => {
         if (filterOption && filterOption.extraCarInfo) {
             setSelectedTypes(filterOption.extraCarInfo.types);
             setSelectedColors(filterOption.extraCarInfo.colors);
             setSelectedDriveTypes(filterOption.extraCarInfo.drivesType);
             setSelectedGears(filterOption.extraCarInfo.gear);
-            setPriceRange(450); // Setze den Preisbereich ebenfalls zurück, falls gewünscht
+            setPriceRange(450);
         }
     }, [formData?.formData?.picUpLocation]);
 
@@ -49,10 +49,10 @@ const FilterBar = () => {
     const handleCheckboxChange = (setSelectedFunction: React.Dispatch<React.SetStateAction<string[]>>, currentSelection: string[]) => (event: React.ChangeEvent<HTMLInputElement>) => {
         const { id, checked } = event.target;
 
-        // Überprüfe, ob es bereits nur eine ausgewählte Option gibt
+        // checkt ob es bereits nur eine ausgewählte Option gibt
         if (!checked && currentSelection.length === 1) {
             alert("Mindestens eine Option muss ausgewählt bleiben.");
-            return; // Verhindere das Abwählen
+            return;
         }
 
         setSelectedFunction(prevSelected =>

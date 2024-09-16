@@ -52,3 +52,11 @@
     font-size: 14px;
     color: #e74c3c;
 }
+
+.login-btn {
+    margin-bottom: 15px;
+}
+
+.reg {
+    margin-bottom: 30px;
+}

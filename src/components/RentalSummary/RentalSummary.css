@@ -45,6 +45,9 @@
     display: flex;
     align-items: center;
     margin-top: 5px;
+    position: relative;
+    cursor: pointer;
+    transition: all .4s;
 }
 
 .stars {
@@ -97,4 +100,49 @@
     font-size: 24px;
     font-weight: bold;
     color: #333;
+}
+
+/* Reviews */
+
+.rating:hover .reviews {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+    /* Verhindert, dass die Box interaktiv ist, wenn sie nicht sichtbar ist */
+
+}
+
+.reviews {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.104);
+    position: absolute;
+    top: 20px;
+    width: 300px;
+    right: 0;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    visibility: hidden;
+    max-height: 400px;
+    overflow: scroll;
+    z-index: 10;
+}
+
+
+.rev-item {
+    margin-bottom: 30px;
+}
+
+.reviews .rev-item p {
+    margin-top: 10px;
+}
+
+.reviews h4 {
+    margin-bottom: 5px;
+}
+
+.reviews p {
+    margin-top: 30px;
 }

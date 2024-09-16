@@ -41,6 +41,28 @@ const LoginPage = () => {
         }
     };
 
+
+    const handleResetPassword = async (e: React.MouseEvent) => {
+        e.preventDefault();
+        if (!email) {
+            alert("Please enter your email address to reset your password")
+            return
+        }
+
+
+        const resetResponse = await supabaseClient.auth.resetPasswordForEmail(email);
+
+        // ? in error steckt die Errormessage, wenn das Zurücksetzen nicht geklappt hat.
+        if (resetResponse.error) {
+            alert("Error by Reseting the Password")
+            return;
+        }
+
+        if (resetResponse.data) {
+            alert('Password reset link has been sent to your email.');
+        }
+    };
+
     return (
         <div className="container">
             <h2 className="header">Login</h2>
@@ -65,8 +87,9 @@ const LoginPage = () => {
                         required
                     />
                 </div>
-                <button type="submit" className="button">Login</button>
-                <Link to={"/register"}>Hier Regestrieren</Link>
+                <button type="submit" className="button login-btn">Login</button>
+                <Link className='reg' to={"/register"}>No Account? Register Here</Link>
+                <button className='btn-alt' onClick={handleResetPassword}>forgot password?</button>
                 {message && <p className="message">{message}</p>}
             </form>
         </div>

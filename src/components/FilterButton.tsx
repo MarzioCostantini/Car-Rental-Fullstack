@@ -9,8 +9,11 @@ const FilterButton = () => {
     const showSidbar = () => {
         sidbarInfo?.setSideBar((prev => !prev))
     }
+
+    console.log("fd", formData?.formData?.picUpLocation);
+
     return (
-        <button disabled={formData?.formData?.picUpLocation === ""} className="btn-main filter-btn" onClick={showSidbar}>
+        <button disabled={formData?.formData?.picUpLocation === undefined || formData?.formData?.picUpLocation === null} className="btn-main filter-btn" onClick={showSidbar}>
             <Filter />
             Filter
         </button>

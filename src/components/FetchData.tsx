@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react"
 import { CarContext, ExtraCarInfoContext } from "../Context/context";
 import supabaseClient from "../lib/supaBaseClient";
+import Loader from "./Loader/Loader";
 
 const FetchData = () => {
     // Holt sich den Cars context
@@ -10,7 +11,7 @@ const FetchData = () => {
 
 
     if (!cardata) {
-        return <div>Loading...</div>;
+        return <Loader />;
     }
 
 
@@ -64,7 +65,7 @@ const FetchData = () => {
 
 
         <div>
-            loading data...
+            <Loader />
         </div>
     );
 }

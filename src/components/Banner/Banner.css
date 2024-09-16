@@ -6,6 +6,10 @@
     padding-top: 30px;
 }
 
+.banner p {
+    color: white;
+}
+
 .banner article:nth-of-type(1) {
     background: url("./img/kreisBg.png") var(--main-alt-color) no-repeat top;
     background-size: cover;

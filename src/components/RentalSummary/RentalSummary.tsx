@@ -1,4 +1,5 @@
 import { VehicleDetail } from "../../DetailCar";
+import ReviewStars from "../ReviewStars/ReviewStars";
 import ReviewStarsDurchschnitt from "../ReviewStarsDurchschnitt/ReviewStarsDurchschnitt";
 import "./RentalSummary.css"
 
@@ -10,12 +11,17 @@ interface PropsCar {
 
 const RentalSummary: React.FC<PropsCar> = (props) => {
 
+
+    console.log("dd", props);
+
     return (
         <section className="rental-summary">
             <div className="rental-summary-header">
                 <h2>Rental Summary</h2>
                 <p>Prices may change depending on the length of the rental and the price of your rental car.</p>
             </div>
+
+
 
             <div className="rental-summary-car">
                 <img src={props.detaildata.carImg} alt={props.detaildata.model} />
@@ -24,6 +30,17 @@ const RentalSummary: React.FC<PropsCar> = (props) => {
                     <div className="rating">
 
                         <ReviewStarsDurchschnitt stars={props.detaildata.reviews} />
+                        <div className="reviews">
+                            {props.detaildata.reviews.map((item, index) => (
+                                <div key={index} className="rev-item">
+                                    <h4>
+                                        {item.name}
+                                    </h4>
+                                    <ReviewStars stars={item.stars} />
+                                    <p>{item.text}</p>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -54,10 +71,6 @@ const RentalSummary: React.FC<PropsCar> = (props) => {
                                 <p>Overall price and includes rental discount</p>
                             </div> <h3>${props.totalPrice}</h3>
                         </>}
-
-
-
-
                 </div>
             </div>
         </section>

@@ -114,7 +114,7 @@ const Confirmation = () => {
                         </div>
                     </div>
                     <div className="footer">
-                        <Link to="/my-bookings">Go to my Bookings</Link>
+                        <Link className='btn-main' to="/my-bookings">My Bookings</Link>
                     </div>
                 </div>
             </div>
