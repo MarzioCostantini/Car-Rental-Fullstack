@@ -1,0 +1,60 @@
+.login-prompt-wr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10vw 2vw;
+    background-color: #f5f7fa;
+    text-align: center;
+}
+
+.login-prompt-wr.login-prompt-box {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    text-align: center;
+}
+
+.login-prompt-wr h2 {
+    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.login-prompt-wr p {
+    color: #666;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+
+.login-prompt-wr .login-prompt-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.login-prompt-wr .login-btn,
+.login-prompt-wr .register-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-prompt-wr .login-btn:hover,
+.login-prompt-wr .register-btn:hover {
+    background-color: #0056b3;
+}
+
+.login-prompt-wr .register-btn {
+    background-color: #28a745;
+}
+
+.login-prompt-wr .register-btn:hover {
+    background-color: #218838;
+}

@@ -5,6 +5,7 @@ import supabaseClient from "../../lib/supaBaseClient";
 import { RentalDetail } from "../../Rental";
 import UpcomingRentalsItem from "../../components/UpcomingRentalsItem/UpcomingRentalsItem";
 import Loader from "../../components/Loader/Loader";
+import NoResults from "../../components/NoResults/NoResults";
 
 const RentalHistory = () => {
     const [detailData, setDetailData] = useState<RentalDetail[] | null>(null);
@@ -114,6 +115,10 @@ const RentalHistory = () => {
         return <div><Loader /></div>;
     }
 
+    console.log(detailData);
+
+
+
     return (
         <div className="rental">
             <h1>My Bookings</h1>
@@ -129,9 +134,11 @@ const RentalHistory = () => {
 
 
                 <div>
-                    {detailData.map((item, index) => (
+                    {detailData.length <= 0 ? <NoResults /> : (detailData.map((item, index) => (
                         <UpcomingRentalsItem item={item} key={index} />
-                    ))}
+                    )))}
+
+
                 </div>
             </section>
         </div>

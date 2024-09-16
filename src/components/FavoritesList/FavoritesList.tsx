@@ -4,6 +4,7 @@ import { useUserContext } from "../../Context/UserContext";
 import "./FavoritesList.css"
 import supabaseClient from '../../lib/supaBaseClient';
 import CarItem from "../CarItem/CarItem";
+import NoResults from "../NoResults/NoResults";
 
 const FavoritesList = () => {
     const [favCars, setFavCars] = useState<Car[]>([]);
@@ -30,7 +31,8 @@ const FavoritesList = () => {
             }
 
             if (favCarsRespons.data.length === 0) {
-                console.log("Keien Daten vorhanden");
+
+                return
             }
 
             const carIds = favCarsRespons.data.map(fav => fav.car_id)
@@ -58,13 +60,19 @@ const FavoritesList = () => {
 
 
     return (
-        <section className="car-list">
-            {favCars.length <= 0 && <h2>Keine Favoreiten vorhanden</h2>}
-
-            {favCars.map((item, index) => (
-                <CarItem item={item} key={index} />
-            ))}
-        </section>
+        < section className="fav-cars" >
+            {
+                favCars.length === 0 ? (
+                    <NoResults />
+                ) : (
+                    <section className="car-list">
+                        {favCars.map((item) => (
+                            <CarItem item={item} key={item.id} />
+                        ))}
+                    </section>
+                )
+            }
+        </section >
     );
 }
 

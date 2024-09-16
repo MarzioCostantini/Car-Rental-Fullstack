@@ -20,6 +20,7 @@ import RentalPage from './pages/RentalPage/RentalPage';
 import RentalHistory from './pages/RentalHistory/RentalHistory';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import Confirmation from './pages/ConfirmationPage/Confirmation';
+import LoginPrompt from './pages/LoginPrompt/LoginPrompt';
 
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
                         <Route path="/car/:id" element={<DetailCarPage />} />
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/register" element={<RegisterPage />} />
+                        <Route path="/loginprompt" element={<LoginPrompt />} />
 
 
                         <Route element={<PrivateRoute />}>

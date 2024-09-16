@@ -120,11 +120,12 @@ const DetailCarPage = () => {
                 </div>
 
 
-                <div className="reviews" id="reviews">
+                <div className="reviews-detail" id="reviews" >
                     <h4>Reviews <span>{detailData.reviews.length}</span></h4>
                     {detailData.reviews.map((item, index) => (
                         <Reviews item={item} key={index} />
                     ))}
+
                 </div>
 
                 <div className="detail-footer"><h3>Available Nearby</h3>
