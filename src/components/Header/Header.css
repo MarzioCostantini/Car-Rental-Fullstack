@@ -44,6 +44,7 @@ header input {
 
 .avatar {
     height: 35px;
-    width: auto;
+    width: 35px;
+    object-fit: cover;
     border-radius: 50px;
 }

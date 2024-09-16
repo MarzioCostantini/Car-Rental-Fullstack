@@ -21,6 +21,11 @@ const MapWithMarkers: React.FC<ICity> = ({ stadt }) => {
     const [coordinates, setCoordinates] = useState<Icoords[]>([]);
 
 
+
+
+    console.log(coordinates);
+
+
     // holt location
     const location = useLocation()
 

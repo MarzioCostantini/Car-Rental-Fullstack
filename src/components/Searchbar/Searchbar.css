@@ -52,4 +52,9 @@
 
 .search-results a:hover {
     background-color: var(--hover);
+
+}
+
+.search-results a:hover p {
+    color: var(--white);
 }

@@ -64,35 +64,48 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="container">
-            <h2 className="header">Login</h2>
-            <form onSubmit={handleSubmit} className="form-log">
-                <div className="formGroup">
-                    <label className="label">Email:</label>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="input"
-                        required
-                    />
-                </div>
-                <div className="formGroup">
-                    <label className="label">Passwort:</label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className="input"
-                        required
-                    />
-                </div>
-                <button type="submit" className="button login-btn">Login</button>
-                <Link className='reg' to={"/register"}>No Account? Register Here</Link>
-                <button className='btn-alt' onClick={handleResetPassword}>forgot password?</button>
-                {message && <p className="message">{message}</p>}
-            </form>
-        </div>
+        <>
+            <div className="container">
+                <h2 className="header">Login</h2>
+                <form onSubmit={handleSubmit} className="form-log">
+                    <div className="formGroup">
+                        <label className="label">Email:</label>
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="input"
+                            required
+                        />
+                    </div>
+                    <div className="formGroup">
+                        <label className="label">Passwort:</label>
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="input"
+                            required
+                        />
+                    </div>
+                    <button type="submit" className="button login-btn">Login</button>
+                    <Link className='reg' to={"/register"}>No Account? Register Here</Link>
+                    <button className='btn-alt' onClick={handleResetPassword}>forgot password?</button>
+                    {message && <p className="message">{message}</p>}
+                </form>
+
+
+
+            </div>
+            <div className='container'>
+                <h2 className="header">Create your own Account or Login with:</h2>
+                <p className='expl'>In this account, some bookings have already been stored. To view all the details, you can either check this account or alternatively create your own account to make and manage your bookings.</p>
+
+                <p>Email: <strong>a@admin.com</strong> </p>
+                <p>Password: <strong>123456</strong> </p>
+
+            </div>
+        </>
     );
 };
 
