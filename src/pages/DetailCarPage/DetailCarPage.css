@@ -101,3 +101,13 @@
     height: 400px;
 
 }
+
+@media screen and (max-width: 950px) {
+    .box-wrapper-detail {
+        grid-template-columns: 1fr;
+    }
+
+    .car-meta-data article {
+        flex-direction: column;
+    }
+}
