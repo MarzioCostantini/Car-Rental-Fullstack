@@ -27,7 +27,7 @@ const MapWithMarkers: React.FC<ICity> = ({ stadt }) => {
     useEffect(() => {
         async function getCoordinates(cityName: string): Promise<Icoords> {
             try {
-                const response = await fetch(`http://api.positionstack.com/v1/forward?access_key=${apiKey}&query=${encodeURIComponent(cityName)}`);
+                const response = await fetch(`https://api.positionstack.com/v1/forward?access_key=${apiKey}&query=${encodeURIComponent(cityName)}`);
 
                 if (!response.ok) {
                     throw new Error(`Failed to fetch coordinates for ${cityName}`);
