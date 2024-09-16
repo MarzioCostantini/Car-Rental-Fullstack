@@ -22,6 +22,9 @@ const MapWithMarkers: React.FC<ICity> = ({ stadt }) => {
 
     const apiKey = import.meta.env.VITE_OPEN_WEATHER_API_KEY
 
+
+    console.log("key", apiKey);
+
     // Koordinaten Funktion
     useEffect(() => {
         async function getCoordinates(cityName: string): Promise<Icoords> {
