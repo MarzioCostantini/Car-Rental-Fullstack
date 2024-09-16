@@ -2,17 +2,18 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { LatLngExpression, Icon } from 'leaflet';  // Importiere Icon von Leaflet
+import { LatLngExpression, Icon } from 'leaflet';  // Icon direkt von Leaflet importieren
 import Loader from '../Loader/Loader';
-import L from 'leaflet';  // Für Icon-URLs
 
-// Setze das Standard-Leaflet-Icon
-delete L.Icon.Default.prototype._getIconUrl;
-
-L.Icon.Default.mergeOptions({
-    iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
+// Manuelles Setzen der Icon-Bilder (Standard-Leaflet-Icons)
+const customIcon = new Icon({
     iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+    iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
     shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
 });
 
 interface ICity {
@@ -47,7 +48,7 @@ const MapWithMarkers: React.FC<ICity> = ({ stadt }) => {
 
                 if (data && data.data.length > 0) {
                     const location = data.data[0];
-                    return { lat: location.latitude, lng: location.longitude, name: cityName };
+                    return { lat: Number(location.latitude), lng: Number(location.longitude), name: cityName };
                 } else {
                     throw new Error(`No results found for ${cityName}`);
                 }
@@ -96,7 +97,7 @@ const MapWithMarkers: React.FC<ICity> = ({ stadt }) => {
             />
 
             {coordinates.map((coord, index) => (
-                <Marker key={index} position={[coord.lat, coord.lng]}>
+                <Marker key={index} position={[coord.lat, coord.lng]} icon={customIcon}>
                     <Popup>{coord.name}</Popup>
                 </Marker>
             ))}
