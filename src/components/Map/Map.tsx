@@ -23,13 +23,11 @@ const MapWithMarkers: React.FC<ICity> = ({ stadt }) => {
     const apiKey = import.meta.env.VITE_OPEN_WEATHER_API_KEY
 
 
-    console.log("key", apiKey);
-
     // Koordinaten Funktion
     useEffect(() => {
         async function getCoordinates(cityName: string): Promise<Icoords> {
             try {
-                const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(cityName)}&limit=1&appid=${apiKey}`);
+                const response = await fetch(`https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(cityName)}&limit=1&appid=${apiKey}`);
 
                 if (!response.ok) {
                     throw new Error(`Failed to fetch coordinates for ${cityName}`);
