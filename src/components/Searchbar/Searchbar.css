@@ -58,3 +58,11 @@
 .search-results a:hover p {
     color: var(--white);
 }
+
+@media screen and (max-width: 600px) {
+    .searchbar input {
+        min-width: 40vw;
+    }
+
+
+}

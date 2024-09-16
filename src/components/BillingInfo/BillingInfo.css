@@ -60,3 +60,10 @@
 .form-group input::placeholder {
     color: #b0bac9;
 }
+
+@media screen and (max-width: 800px) {
+    .billing-info-form {
+        grid-template-columns: 1fr;
+    }
+
+}

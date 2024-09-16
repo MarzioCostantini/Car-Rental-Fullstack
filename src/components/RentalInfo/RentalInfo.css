@@ -85,3 +85,11 @@
     outline: none;
     border-color: #007bff;
 }
+
+@media screen and (max-width: 800px) {
+    .form-section {
+        display: flex;
+        flex-direction: column;
+    }
+
+}

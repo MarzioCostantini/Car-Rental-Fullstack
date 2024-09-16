@@ -113,6 +113,10 @@
 
 }
 
+.rev-item {
+    padding: 15px;
+}
+
 .reviews {
     background-color: white;
     border-radius: 10px;

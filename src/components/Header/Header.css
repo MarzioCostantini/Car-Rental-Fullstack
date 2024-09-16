@@ -48,3 +48,9 @@ header input {
     object-fit: cover;
     border-radius: 50px;
 }
+
+@media screen and (max-width: 650px) {
+    .round-icon {
+        display: none;
+    }
+}
