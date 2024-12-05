@@ -1,6 +1,6 @@
 # MORENT - Your Go-To Car Rental Platform!
 
-![Morent1](./public/Morent.png)
+![Morent1](./public/morent.png)
 
 Welcome to [MORENT](https://morent-fullstack.vercel.app/), the ultimate solution for effortless and reliable car rentals. Whether you’re planning a weekend getaway, a business trip, or just need a temporary ride, Morent makes it simple to find the perfect vehicle that fits your needs and budget.
 
@@ -40,7 +40,7 @@ Morent empowers you to take charge of your travel plans with ease. Whether you�
 
 Don’t wait! Start your next journey with MORENT today and experience the freedom of seamless car rentals.
 
-[VISIT NOW](https://morent-fullstack.vercel.app/)
+
 
 ---
 
